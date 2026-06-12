@@ -1,0 +1,87 @@
+﻿---
+import { renderMetadataValue } from "~/lib/metadata-format";
+import { resolveRelated } from "~/lib/sections-registry";
+import { getLimitsForSection } from "~/data/size-limits";
+
+interface Props {
+  tab: string;
+  tabTitle: string;
+  section: string;
+  title: string;
+  summary: string;
+  uiSubtitle?: string;
+  uiLocation?: string;
+  editor?: string;
+  related?: string;
+  updatedIso?: string;
+  updatedLabel?: string;
+}
+
+const { tab, section, title, summary, uiSubtitle, uiLocation, editor, related, updatedIso, updatedLabel } = Astro.props;
+const relatedItems = await resolveRelated(related);
+const limitEntries = getLimitsForSection(tab + "/" + section);
+const limitsReference = "/appendix/validation-and-size-limits";
+---
+<section class="section-hero">
+  <h1 class="section-hero__title">{title}</h1>
+  <div class="section-hero__title-key"><code>{section}</code></div>
+  <p class="section-hero__lede" set:html={renderMetadataValue(summary)} />
+  {uiSubtitle && (
+    <div class="section-hero__callout">
+      <span class="section-hero__callout-label">In the editor</span>
+      <p class="section-hero__callout-body" set:html={renderMetadataValue(uiSubtitle)} />
+    </div>
+  )}
+  <dl class="section-hero__facts">
+    {uiLocation && (
+      <div class="section-hero__fact">
+        <dt>Editor location</dt>
+        <dd set:html={renderMetadataValue(uiLocation)} />
+      </div>
+    )}
+    {editor && (
+      <div class="section-hero__fact">
+        <dt>Editor type</dt>
+        <dd set:html={renderMetadataValue(editor)} />
+      </div>
+    )}
+    <div class="section-hero__fact">
+      <dt>API endpoint</dt>
+      <dd class="api-endpoint-links"><a href={"/api/sections/" + section + ".json"} target="_blank" rel="noopener"><code>{"/api/sections/" + section + ".json"}</code></a><a href={"/api/sections/" + section + ".md"} target="_blank" rel="noopener"><code>{"/api/sections/" + section + ".md"}</code></a></dd>
+    </div>
+    <div class="section-hero__fact section-hero__fact--wide">
+      <dt><a href={limitsReference}>Size limits</a></dt>
+      <dd class="section-hero__limits">
+        {limitEntries.length > 0 ? (
+          <ul class="section-hero__limits-list">
+            {limitEntries.map((entry) => (
+              <li>
+                <span class="section-hero__limit-field" set:html={renderMetadataValue(entry.field)} />
+                <span class="section-hero__limit-sep">—</span>
+                <span class="section-hero__limit-value" set:html={renderMetadataValue(entry.limit)} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="section-hero__limits-empty">No character-length caps for this section. See the <a href={limitsReference}>validation reference</a> for the complete table.</p>
+        )}
+      </dd>
+    </div>
+  </dl>
+  {relatedItems.length > 0 && (
+    <div class="section-hero__related">
+      <span class="section-hero__related-label">Related</span>
+      <ul class="section-hero__related-list">
+        {relatedItems.map((item) => (
+          <li><a class="section-hero__chip section-hero__chip--related" href={item.path} title={item.description}>{item.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  )}
+  {updatedLabel && (
+    <div class="section-hero__updated">
+      <span class="section-hero__updated-label">Last updated</span>
+      <time datetime={updatedIso}>{updatedLabel}</time>
+    </div>
+  )}
+</section>

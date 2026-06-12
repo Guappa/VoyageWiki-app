@@ -1,0 +1,129 @@
+﻿---
+import "~/styles/tokens.css";
+import "~/styles/base.css";
+import "~/styles/layout.css";
+import "~/styles/brand.css";
+import "~/styles/sidebar.css";
+import "~/styles/content.css";
+import "~/styles/fields.css";
+import "~/styles/sections.css";
+import "~/styles/search.css";
+import "~/styles/tools.css";
+import "~/styles/pages.css";
+import "~/styles/print.css";
+import { ClientRouter } from "astro:transitions";
+import Header from "~/components/static/Header.astro";
+import Footer from "~/components/static/Footer.astro";
+import Sidebar from "~/components/static/Sidebar.astro";
+
+interface Props {
+  withRail?: boolean;
+  title: string;
+  description?: string;
+}
+
+const { title, description, withRail = false } = Astro.props;
+const ogDescription = description ?? "VoyageWiki: V33 schema reference for Voyage worlds.";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={ogDescription} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? "https://voyagewiki.pages.dev").toString()} />
+    <link rel="api-catalog" href="/api/index.json" type="application/json" title="VoyageWiki API manifest" />
+    <link rel="alternate" type="application/json" href="/api/wiki.json" title="VoyageWiki as JSON" />
+    <link rel="alternate" type="text/markdown" href="/api/wiki.md" title="VoyageWiki as Markdown" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly site summary" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VoyageWiki" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site ?? "https://voyagewiki.pages.dev").toString()} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={ogDescription} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="outfit-font"
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap"
+      as="style"
+    />
+    <script is:inline>
+      (function () {
+        var link = document.getElementById("outfit-font");
+        if (link) link.addEventListener("load", function () { link.setAttribute("rel", "stylesheet"); }, { once: true });
+      })();
+    </script>
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap" />
+    </noscript>
+    <script is:inline data-astro-rerun>
+      (function () {
+        var validSizes = [13, 16, 20, 26];
+        function apply() {
+          try {
+            var storedTheme = localStorage.getItem("wiki-theme");
+            var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var resolvedTheme;
+            if (storedTheme === "light" || storedTheme === "dark") {
+              resolvedTheme = storedTheme;
+            } else {
+              resolvedTheme = systemDark ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-theme", resolvedTheme);
+
+            var storedSize = parseInt(localStorage.getItem("wiki-fontsize"), 10);
+            if (validSizes.indexOf(storedSize) !== -1) {
+              document.documentElement.style.setProperty("--size-body", storedSize + "px");
+            }
+          } catch (e) {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        }
+        apply();
+        document.addEventListener("astro:after-swap", apply);
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="wiki-shell">
+      <Header />
+      <div class="sidebar-backdrop" data-sidebar-backdrop aria-hidden="true"></div>
+      <div class={"doc-shell" + (withRail ? " doc-shell--with-rail" : "")}>
+        <Sidebar />
+        <main id="main-content" class="doc-main">
+          <div class="doc-main__prose">
+            <slot />
+          </div>
+        </main>
+        {withRail && (
+          <aside class="doc-rail" aria-label="Page sidebar">
+            <slot name="rail" />
+          </aside>
+        )}
+      </div>
+      <Footer />
+    </div>
+    <script>
+      import "~/lib/code-block-toolbar";
+      import "~/lib/code-block-collapse";
+      import "~/lib/sidebar-drawer";
+      import "~/lib/sidebar-scroll-persist";
+      import "~/lib/sidebar-anchor-active";
+      import "~/lib/heading-anchors";
+      import "~/lib/hash-scroll-offset";
+      import "~/lib/smooth-anchor-scroll";
+      import "~/lib/scroll-progress";
+      import "~/lib/field-tooltip";
+      import "~/lib/toc-active";
+    </script>
+  </body>
+</html>

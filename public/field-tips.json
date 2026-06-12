@@ -1,0 +1,356 @@
+{
+  "aiInstructions": {
+    "field": "aiInstructions",
+    "title": "Story Instructions",
+    "summary": "`aiInstructions` is where you write the rules the narrator follows during play, organized into tasks each firing at a specific moment. This page covers the cross-task mechanics: processing logic and the two internal non-authorable tasks. Each individual task has its own page in the sidebar.",
+    "path": "/ai/aiInstructions"
+  },
+  "generateActionInfo": {
+    "field": "generateActionInfo",
+    "title": "Action Info",
+    "summary": "Fires on action resolution and combat. High priority: governs all mechanically-weighted actions — combat, spells, skill checks, and social rolls. Missing rules create inconsistent outcomes.",
+    "path": "/ai/generateActionInfo"
+  },
+  "generateCharacterBackground": {
+    "field": "generateCharacterBackground",
+    "title": "Character Background",
+    "summary": "Fires on demand when a player inspects a character's detailed profile. Generates biographical history — distinct from basicInfo/hiddenInfo. Because it fires on demand rather than continuously, it suits detailed backstory constraints that would waste budget in `generateStory`.",
+    "path": "/ai/generateCharacterBackground"
+  },
+  "generateEncounters": {
+    "field": "generateEncounters",
+    "title": "Encounters",
+    "summary": "Fires when framing an encounter. Low priority: `encounterElements` in Other provides the source palette. Use custom to set difficulty mix, creature behavior rules, and non-combat resolution conditions.",
+    "path": "/ai/generateEncounters"
+  },
+  "generateFactionDetails": {
+    "field": "generateFactionDetails",
+    "title": "Faction Details",
+    "summary": "Generates faction details — hidden agendas, operating methods, and the gap between stated purpose and actual practice. Use custom to shape how `factions` are portrayed beneath their public face.",
+    "path": "/ai/generateFactionDetails"
+  },
+  "generateInitialStart": {
+    "field": "generateInitialStart",
+    "title": "Initial Start",
+    "summary": "Fires on the first scene of a new game only. Controls how the opening scene is constructed: structure, pacing, and first impressions.",
+    "path": "/ai/generateInitialStart"
+  },
+  "generateItemGenerationAndUsage": {
+    "field": "generateItemGenerationAndUsage",
+    "title": "Item Generation/Usage",
+    "summary": "Provides context to generateItemDefinitions (newly created `items`) and generateItemUpdates (inventory changes). Not included for `generateActionInfo` or `generateStory`. The JSON key is `ItemGenerationAndUsage` — non-standard casing.",
+    "path": "/ai/generateItemGenerationAndUsage"
+  },
+  "generateLearnedAbilities": {
+    "field": "generateLearnedAbilities",
+    "title": "Learned Abilities",
+    "summary": "Evaluates story events for opportunities to grant new `abilities`. Low priority: most turns produce no output. Use custom to define the world's learnable ability families and acquisition methods.",
+    "path": "/ai/generateLearnedAbilities"
+  },
+  "generateLocationDetails": {
+    "field": "generateLocationDetails",
+    "title": "Location Details",
+    "summary": "Generates location descriptions, areas, and paths. Low priority: a well-written basicInfo carries most of the load. Use custom to add sensory layers, archetype integration rules, and atmosphere guidance.",
+    "path": "/ai/generateLocationDetails"
+  },
+  "generateNewNPC": {
+    "field": "generateNewNPC",
+    "title": "New NPC",
+    "summary": "Fires for first-pass creation of AI-improvised NPCs only. Does not apply to authored NPCs or quest-spawned NPCs. `generateNPCDetails` still runs on all NPC types on first encounter.",
+    "path": "/ai/generateNewNPC"
+  },
+  "generateNPCDetails": {
+    "field": "generateNPCDetails",
+    "title": "NPC Details",
+    "summary": "Fires once when an AI-created NPC first appears in scene with only minimal first-pass data. Generates the full basicInfo, hiddenInfo, personality, and `abilities` record. Distinct from `generateCharacterBackground`, which is on-demand biographical lore.",
+    "path": "/ai/generateNPCDetails"
+  },
+  "generateNPCIntents": {
+    "field": "generateNPCIntents",
+    "title": "NPC Intents",
+    "summary": "Fires when the AI chooses NPC goals for a turn. Medium priority: near-constant in NPC-heavy play. Controls quality gates, escalation pacing, and per-scene-type intent logic. Supports multiple named keys for scene-type-specific behavior.",
+    "path": "/ai/generateNPCIntents"
+  },
+  "generateNPCUpdates": {
+    "field": "generateNPCUpdates",
+    "title": "NPC Updates",
+    "summary": "Fires when an existing NPC's state changes during play — location, mood, status, or relationship updates. Controls continuity: which fields can change, how quickly, and what in-scene evidence is required.",
+    "path": "/ai/generateNPCUpdates"
+  },
+  "generateRegionDetails": {
+    "field": "generateRegionDetails",
+    "title": "Region Details",
+    "summary": "Generates region descriptions, `factions`, and `locations`. A content-generation task — not narration. Use custom to shape geographic identity, faction character, and location types for generated `regions`.",
+    "path": "/ai/generateRegionDetails"
+  },
+  "generateStory": {
+    "field": "generateStory",
+    "title": "Story",
+    "summary": "The primary narration task. Fires most frequently during active play — keep instructions tight and protect this budget first.",
+    "path": "/ai/generateStory"
+  },
+  "imagePromptConfiguration": {
+    "field": "imagePromptConfiguration",
+    "title": "Image Prompt Configuration",
+    "summary": "Custom prompt templates for AI image generation per content category. Author-provided strings layered on top of Voyage's default image prompts for NPC portraits, location art, and region art.",
+    "path": "/other/imagePromptConfiguration"
+  },
+  "ai-advanced-techniques": {
+    "field": "ai-advanced-techniques",
+    "title": "Advanced AI Instruction Techniques",
+    "summary": "Instruction patterns observed in authored worlds that go beyond standard custom block usage — priority overrides, conditional routing, behavior suppression, and spawn guards. These are prose instructions to an AI model. The AI interprets and applies them; compliance is high but not guaranteed.",
+    "path": "/appendix/ai-advanced-techniques"
+  },
+  "abilities": {
+    "field": "abilities",
+    "title": "Abilities",
+    "summary": "Abilities are named actions characters can attempt - magical powers, combat techniques, special manoeuvres. Each ability is gated by skill or trait `requirements` and modifies how the engine resolves the resulting roll.",
+    "path": "/mechanics/abilities"
+  },
+  "attributeSettings": {
+    "field": "attributeSettings",
+    "title": "Attributes",
+    "summary": "Attributes are the core stats of your system - strength, dexterity, intelligence, or whatever names fit your world. They drive skill-roll modifiers and optionally scale resource pools.",
+    "path": "/mechanics/attributeSettings"
+  },
+  "combatSettings": {
+    "field": "combatSettings",
+    "title": "Combat Settings (Advanced)",
+    "summary": "Numeric tuning for the combat system: XP rewards for defeating enemies, ability recharge timing, ability effectiveness bonus, NPC daily healing, and the canonical list of valid damage types for your world.",
+    "path": "/mechanics/combatSettings"
+  },
+  "death": {
+    "field": "death",
+    "title": "Death Rules",
+    "summary": "Defines what happens when a character's health hits zero. `permadeath` controls whether `death` is permanent; `instructions` is prose fed directly to the narrator describing the downing and recovery process.",
+    "path": "/mechanics/death"
+  },
+  "itemSettings": {
+    "field": "itemSettings",
+    "title": "Item Settings",
+    "summary": "Defines the equipment system: the name of your currency, the item categories that exist, the equipment slots characters have, and the `items` given to every player at the start of every game regardless of trait or story start.",
+    "path": "/mechanics/itemSettings"
+  },
+  "resourceSettings": {
+    "field": "resourceSettings",
+    "title": "Resources",
+    "summary": "Resources are the tracked bars in your game - `health` is required, everything else (mana, stamina, corruption, etc.) is optional. Each resource defines a current/max value, UI bar color, recharge rate, and usage instructions for the narrator.",
+    "path": "/mechanics/resourceSettings"
+  },
+  "skills": {
+    "field": "skills",
+    "title": "Skills",
+    "summary": "Skills are the rolled actions characters attempt. Each skill connects to one attribute (which provides the dice modifier), has a `type` string for difficulty bonuses, and a description that defines what it covers.",
+    "path": "/mechanics/skills"
+  },
+  "skillSettings": {
+    "field": "skillSettings",
+    "title": "Skill Settings (Advanced)",
+    "summary": "Global skill mechanics — XP costs for leveling, skill learning chance, maximum skill level, and the difficulty check thresholds that translate difficulty labels (Easy/Hard/etc.) into numeric bonuses.",
+    "path": "/mechanics/skillSettings"
+  },
+  "traitCategories": {
+    "field": "traitCategories",
+    "title": "Trait Categories",
+    "summary": "Categories group `traits` together and control how many the player can pick from each group. Each category must be defined before `traits` can be assigned to it - the `traits` array lists which trait names belong to this category.",
+    "path": "/mechanics/traitCategories"
+  },
+  "traits": {
+    "field": "traits",
+    "title": "Traits",
+    "summary": "Traits are the character creation choices - race, class, background, and any other categories you define. Each trait is a bucket of `skills`, attributes, resources, `items`, and `abilities` the chosen character receives.",
+    "path": "/mechanics/traits"
+  },
+  "triggers": {
+    "field": "triggers",
+    "title": "Triggers",
+    "summary": "Conditional automations that fire effects when their conditions all pass. The primary mechanism for quest activation, state flags, world-mutation, and one-time narrator instructions. Triggers are deterministic where narrator instructions are probabilistic -- use `triggers` for anything that must mechanically happen.",
+    "path": "/mechanics/triggers"
+  },
+  "authorSeeds": {
+    "field": "authorSeeds",
+    "title": "NPC Author Seeds",
+    "summary": "Named NPC-writing-tone presets. Each key is a display label; the value is a multi-line directive injected into `generateNPCDetails` when that seed is selected.",
+    "path": "/other/authorSeeds"
+  },
+  "characterArchetypes": {
+    "field": "characterArchetypes",
+    "title": "NPC Archetypes (Advanced)",
+    "summary": "Keyed personality scaffolds for character background generation. Each archetype is a structured prompt block with **Drives, Traits, Morality, and Relationships** sections.",
+    "path": "/other/characterArchetypes"
+  },
+  "characterCreationMusic": {
+    "field": "characterCreationMusic",
+    "title": "Character Creation Music",
+    "summary": "Selects which background music track Voyage plays during the character creation flow. Top-level enum field accepting `fantasy` or `nonfantasy`; defaults to fantasy when omitted.",
+    "path": "/other/characterCreationMusic"
+  },
+  "encounterElements": {
+    "field": "encounterElements",
+    "title": "Encounter Elements (Advanced)",
+    "summary": "These define the encounter palette - a curated menu of possible scenarios the AI draws from when generating random encounters. Short entries work; longer entries are more specific.",
+    "path": "/other/encounterElements"
+  },
+  "locationArchetypes": {
+    "field": "locationArchetypes",
+    "title": "Location Archetypes (Advanced)",
+    "summary": "These strings go to the AI when it needs to describe or expand a location. Write them as tone directions, not encyclopedia entries - the AI doesn't need a lore summary, it needs to know what makes this type of place feel distinct.",
+    "path": "/other/locationArchetypes"
+  },
+  "locationSettings": {
+    "field": "locationSettings",
+    "title": "Location Settings (Advanced)",
+    "summary": "Controls the map and travel system parameters: region size, location radii, travel distances, how many `factions` the engine places in AI-generated `regions`, and whether new `regions` and encounters can be created during play.",
+    "path": "/other/locationSettings"
+  },
+  "nameFilterSettings": {
+    "field": "nameFilterSettings",
+    "title": "Name Filter Settings",
+    "summary": "Keyed map of name replacement rules. Each key is a name (or name fragment); its value provides a list of allowed replacements. When a generated name matches a key, the AI substitutes one from the replacements array.",
+    "path": "/other/nameFilterSettings"
+  },
+  "narratorStyle": {
+    "field": "narratorStyle",
+    "title": "Narrator Style",
+    "summary": "A dedicated prose style field separate from `aiInstructions`. It shapes sentence rhythm, tense, person, vocabulary register, and sensory detail level. Leave the value as `\"\"` to use default narration.",
+    "path": "/other/narratorStyle"
+  },
+  "otherSettings": {
+    "field": "otherSettings",
+    "title": "Other Settings (Advanced)",
+    "summary": "XP thresholds, level cap, and NPC health scaling for your scenario.",
+    "path": "/other/otherSettings"
+  },
+  "randomNames": {
+    "field": "randomNames",
+    "title": "Random Character Names (Advanced)",
+    "summary": "Name pools the engine draws from when generating character names. Used by the randomize button in character creation and by AI-generated NPC names.",
+    "path": "/other/randomNames"
+  },
+  "regionArchetypes": {
+    "field": "regionArchetypes",
+    "title": "Region Archetypes (Advanced)",
+    "summary": "These strings go to the AI when it needs to describe or expand a region. Write them as tone directions - what makes this type of terrain or territory feel distinct politically, physically, and atmospherically.",
+    "path": "/other/regionArchetypes"
+  },
+  "tipSettings": {
+    "field": "tipSettings",
+    "title": "Tip Settings (Advanced)",
+    "summary": "Tips are player-facing messages shown periodically during play - the only section of the scenario that speaks directly to a human player rather than to the AI. Use them to surface mechanical rules the player might forget or set tonal expectations.",
+    "path": "/other/tipSettings"
+  },
+  "factions": {
+    "field": "factions",
+    "title": "Factions",
+    "summary": "Factions are the named organizations in your world - governing bodies, guilds, cults, criminal networks, or any group with shared goals. Each has a public face (`basicInfo`), a hidden agenda (`hiddenInfo`), a type (major or minor), and optionally a leader and home location.",
+    "path": "/world/factions"
+  },
+  "items": {
+    "field": "items",
+    "title": "Items",
+    "summary": "Items are the objects players can carry, equip, and use. During play all `items` are AI-generated, but every item that can appear in a `startingItems` list - on a trait, story start, or `itemSettings` - must be defined here first.",
+    "path": "/world/items"
+  },
+  "locations": {
+    "field": "locations",
+    "title": "Locations",
+    "summary": "Locations are the named places on the map - cities, ruins, dungeons, waypoints. Each has a `basicInfo` description for the narrator, optional `hiddenInfo`, named `areas` inside it with their own descriptions, and `paths` to adjacent `locations`.",
+    "path": "/world/locations"
+  },
+  "npcs": {
+    "field": "npcs",
+    "title": "NPCs",
+    "summary": "`basicInfo` is the field the narrator reads during play AND the field the portrait generator reads when drawing the NPC. `hiddenInfo` is what the player has not yet discovered (revealed only through play). `visualDescription` is sent only to the image model, where it sits alongside `basicInfo` - the appearance content in `basicInfo` already covers the same ground, so the field is redundant; leave it empty in new authoring.",
+    "path": "/world/npcs"
+  },
+  "npcTypes": {
+    "field": "npcTypes",
+    "title": "NPC Types (Advanced)",
+    "summary": "NPC types define behavior templates for categories of NPCs. Each type lists `vulnerabilities`, `resistances`, and `immunities` to `skills` and damage types.",
+    "path": "/world/npcTypes"
+  },
+  "premadeCharacters": {
+    "field": "premadeCharacters",
+    "title": "Premade Characters",
+    "summary": "Pre-built character templates a player can select at session start instead of building one from scratch. JSON-only field with no dedicated editor panel - edit it via the full-world JSON tab.",
+    "path": "/world/premadeCharacters"
+  },
+  "quests": {
+    "field": "quests",
+    "title": "Quests (Advanced)",
+    "summary": "Quests are pre-authored story objectives that start hidden and become visible only when a trigger fires `quest-init`. Every quest needs at least one trigger pointing to it - `quests` with no trigger are permanently unreachable.",
+    "path": "/world/quests"
+  },
+  "realms": {
+    "field": "realms",
+    "title": "Realms (Advanced)",
+    "summary": "A realm is the top-level container for your `regions` - the world, country, or dimension the story takes place in. Most scenarios need exactly one. Use multiple `realms` only for true planar or dimensional scenarios.",
+    "path": "/world/realms"
+  },
+  "regions": {
+    "field": "regions",
+    "title": "Regions",
+    "summary": "Regions are the geographic map units - the named zones that appear as cells on the player's interactive map. A realm contains all `regions`; `locations` are the specific points of interest inside a region.",
+    "path": "/world/regions"
+  },
+  "storySettings": {
+    "field": "storySettings",
+    "title": "Story Overview",
+    "summary": "`storySettings` contains the world background and quest generation guidance for your scenario. `worldBackground` is the canonical world description; `questGenerationGuidance` is a targeted brief for dynamically-generated `quests`.",
+    "path": "/world/storySettings"
+  },
+  "storyStarts": {
+    "field": "storyStarts",
+    "title": "Story Starts",
+    "summary": "Story starts are the selectable opening scenarios players choose from at the start of a game. Each defines the initial scene, what the player has, and the first narration. A scenario needs at least one start; most have two or three.",
+    "path": "/world/storyStarts"
+  },
+  "worldLore": {
+    "field": "worldLore",
+    "title": "World Lore",
+    "summary": "`worldLore` is ambient context the AI draws on when generating narration and NPCs. It is not player-visible - players never read these entries directly. Think of it as the set of facts the narrator considers true about the world.",
+    "path": "/world/worldLore"
+  },
+  "configVersion": {
+    "field": "configVersion",
+    "title": "configVersion",
+    "summary": "Schema version of this scenario - always 'V33' for current Voyage Heroes scenarios.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "heroesVersion": {
+    "field": "heroesVersion",
+    "title": "heroesVersion",
+    "summary": "Voyage Heroes engine version this scenario targets - currently 33.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "embeddingModel": {
+    "field": "embeddingModel",
+    "title": "embeddingModel",
+    "summary": "Which embedding model the engine uses for semantic retrieval. Engine default; do not change.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "embeddingDimension": {
+    "field": "embeddingDimension",
+    "title": "embeddingDimension",
+    "summary": "Vector dimension paired with the embedding model. Engine default; do not change.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "embeddings": {
+    "field": "embeddings",
+    "title": "embeddings",
+    "summary": "Auto-populated by the engine at scenario import. Authors leave it empty.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "mods": {
+    "field": "mods",
+    "title": "mods (installed)",
+    "summary": "Installed-mods array - populated automatically when a player installs mods on top of this scenario; not edited by hand.",
+    "path": "/getting-started/editor-ui#info-tab-fields-json-side-scenario-header"
+  },
+  "ItemGenerationAndUsage": {
+    "field": "ItemGenerationAndUsage",
+    "title": "Item Generation/Usage",
+    "summary": "Provides context to generateItemDefinitions (newly created `items`) and generateItemUpdates (inventory changes). Not included for `generateActionInfo` or `generateStory`.",
+    "path": "/ai/generateItemGenerationAndUsage"
+  }
+}

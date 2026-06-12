@@ -1,0 +1,57 @@
+.field-infobox {
+  background: var(--color-bg-infobox);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.95em;
+  margin: 0 0 var(--space-5);
+}
+
+.field-infobox__title {
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 1em;
+  margin: 0 0 var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+  overflow-wrap: anywhere;
+}
+
+.field-infobox__row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  align-items: baseline;
+}
+
+.field-infobox__label {
+  color: var(--color-text-muted);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.field-infobox__value {
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+  font-size: 0.95em;
+}
+
+
+.field-title {
+  display: block;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.field-title__parent {
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+.field-title__name {
+  color: var(--color-text-heading);
+  font-weight: 800;
+}

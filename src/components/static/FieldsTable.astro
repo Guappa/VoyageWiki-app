@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from "astro:content";
+interface Props {
+  section: string;
+  fields: CollectionEntry<"fields">[];
+}
+const { fields } = Astro.props;
+const sorted = [...fields].sort((a, b) => a.data.path.localeCompare(b.data.path));
+---
+{sorted.length > 0 ? (
+  <div class="fields-table-wrap">
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Size</th><th>Summary</th></tr>
+      </thead>
+      <tbody>
+        {sorted.map((entry) => (
+          <tr>
+            <td><a href={"#field-" + entry.data.path.replace(/\./g, "-")}><code>{entry.data.path}</code></a></td>
+            <td><code>{entry.data.type}</code></td>
+            <td>{entry.data.required ? "yes" : "no"}</td>
+            <td>{entry.data.sizeLimit ? entry.data.sizeLimit + " chars" : "-"}</td>
+            <td>{entry.data.summary}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+) : (
+  <p class="fields-table-empty">No per-field documentation yet for this section.</p>
+)}

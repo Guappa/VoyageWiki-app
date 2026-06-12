@@ -1,0 +1,33 @@
+---
+import hljs from "highlight.js";
+
+interface Props { lang: string; code: string; }
+const { lang, code } = Astro.props;
+
+// Mirrors what rehype-highlight does in the MDX pipeline; lang="text" skips highlighting.
+function highlight(src: string, language: string): string {
+  if (language === "text") {
+    return src
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+  try {
+    return hljs.highlight(src, { language, ignoreIllegals: true }).value;
+  } catch {
+    return src
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+}
+
+const html = highlight(code, lang);
+---
+<div class="code-block" data-language={lang}>
+  <div class="code-block__toolbar">
+    <span class="code-block__lang">{lang}</span>
+    <button type="button" class="code-block__copy" data-copy-button="true" aria-label="Copy code to clipboard">Copy</button>
+  </div>
+  <pre><code class={"language-" + lang + " hljs"} set:html={html} /></pre>
+</div>

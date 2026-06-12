@@ -1,0 +1,848 @@
+{
+  "errors": {
+    "npc": [
+      {
+        "code": "world-config.limit.npc",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "npcs",
+          "n"
+        ],
+        "message": "NPC \"n\" exceeds 8,000 characters by 1,023 (9,023 total)"
+      }
+    ],
+    "npc_type_description": [
+      {
+        "code": "world-config.limit.npc-type-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "npcTypes",
+          "t",
+          "description"
+        ],
+        "message": "NPC type \"t\" description exceeds 8,000 characters by 1,000 (9,000 total)"
+      }
+    ],
+    "item_description": [
+      {
+        "code": "world-config.limit.item-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "items",
+          "i",
+          "description"
+        ],
+        "message": "Item \"i\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "faction_basic_info": [
+      {
+        "code": "world-config.limit.faction-basic-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "factions",
+          "f",
+          "basicInfo"
+        ],
+        "message": "Faction \"f\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "faction_hidden_info": [
+      {
+        "code": "world-config.limit.faction-hidden-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "factions",
+          "f",
+          "hiddenInfo"
+        ],
+        "message": "Faction \"f\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "region_basic_info": [
+      {
+        "code": "world-config.limit.region-basic-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "regions",
+          "rg",
+          "basicInfo"
+        ],
+        "message": "Region \"rg\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "region_hidden_info": [
+      {
+        "code": "world-config.limit.region-hidden-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "regions",
+          "rg",
+          "hiddenInfo"
+        ],
+        "message": "Region \"rg\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "location_basic_info": [
+      {
+        "code": "world-config.limit.location-basic-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "locations",
+          "l",
+          "basicInfo"
+        ],
+        "message": "Location \"l\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "location_hidden_info": [
+      {
+        "code": "world-config.limit.location-hidden-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "locations",
+          "l",
+          "hiddenInfo"
+        ],
+        "message": "Location \"l\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "area_description": [
+      {
+        "code": "world-config.limit.area-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "locations",
+          "l",
+          "areas",
+          "a",
+          "description"
+        ],
+        "message": "Area \"a\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "realm_basic_info": [
+      {
+        "code": "world-config.limit.realm-basic-info",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "realms",
+          "rm",
+          "basicInfo"
+        ],
+        "message": "Realm \"rm\" basicInfo exceeds 100,000 characters by 10,000 (110,000 total)"
+      }
+    ],
+    "trait_description": [
+      {
+        "code": "world-config.limit.trait-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "traits",
+          "t",
+          "description"
+        ],
+        "message": "Trait \"t\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "world_lore_text": [
+      {
+        "code": "world-config.limit.world-lore-text",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "worldLore",
+          "wl",
+          "text"
+        ],
+        "message": "World lore \"wl\" text exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "story_world_background": [
+      {
+        "code": "world-config.limit.story-world-background",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "storySettings",
+          "worldBackground"
+        ],
+        "message": "Story worldBackground exceeds 5,000 characters by 1,000 (6,000 total)"
+      }
+    ],
+    "story_quest_guidance": [
+      {
+        "code": "world-config.limit.story-quest-generation-guidance",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "storySettings",
+          "questGenerationGuidance"
+        ],
+        "message": "Story questGenerationGuidance exceeds 5,000 characters by 1,000 (6,000 total)"
+      }
+    ],
+    "ability_description": [
+      {
+        "code": "world-config.limit.ability-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "abilities",
+          "a",
+          "description"
+        ],
+        "message": "Ability \"a\" description exceeds 2,000 characters by 1,000 (3,000 total)"
+      }
+    ],
+    "narrator_style": [
+      {
+        "code": "world-config.limit.narrator-style",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "narratorStyle"
+        ],
+        "message": "Narrator Style exceeds 2,000 characters by 500 (2,500 total)"
+      }
+    ],
+    "death_instructions": [
+      {
+        "code": "world-config.limit.death-instructions",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "death",
+          "instructions"
+        ],
+        "message": "Death Rules instructions exceeds 4,000 characters by 1,000 (5,000 total)"
+      }
+    ],
+    "ai_instruction": [
+      {
+        "code": "world-config.limit.ai-instruction",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "aiInstructions",
+          "generateStory",
+          "custom"
+        ],
+        "message": "AI instruction \"custom\" for generateStory exceeds 5,000 characters by 1,002 (6,002 total)"
+      }
+    ],
+    "story_start": [
+      {
+        "code": "world-config.limit.story-start",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "storyStarts",
+          "s"
+        ],
+        "message": "Story start \"s\" exceeds 4,000 characters by 1,022 (5,022 total)"
+      }
+    ],
+    "game_mode": [
+      {
+        "code": "world-config.limit.game-mode-name",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "gameModes",
+          "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+          "name"
+        ],
+        "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" name exceeds 120 characters by 10 (130 total)"
+      },
+      {
+        "code": "world-config.limit.game-mode-description",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "gameModes",
+          "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+          "description"
+        ],
+        "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" description exceeds 500 characters by 100 (600 total)"
+      },
+      {
+        "code": "world-config.limit.game-mode-instructions",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "gameModes",
+          "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+          "instructions"
+        ],
+        "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" instructions exceeds 5,000 characters by 1,000 (6,000 total)"
+      },
+      {
+        "code": "world-config.limit.game-mode-ask-the-narrator-prompt",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "gameModes",
+          "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+          "askTheNarratorPrompt"
+        ],
+        "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" ask-the-narrator prompt exceeds 1,000 characters by 100 (1,100 total)"
+      }
+    ],
+    "ai_task_instructions": [
+      {
+        "code": "world-config.limit.ai-task-instructions",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "aiInstructions",
+          "generateStory"
+        ],
+        "message": "AI task \"generateStory\" instructions exceeds 20,000 characters by 1,748 (21,748 total)"
+      }
+    ],
+    "game_modes_section": [
+      {
+        "code": "world-config.limit.game-modes",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "gameModes"
+        ],
+        "message": "Game modes config exceeds 100,000 characters by 48,842 (148,842 total)"
+      }
+    ],
+    "trait_categories_section": [
+      {
+        "code": "world-config.limit.trait-categories",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "traitCategories"
+        ],
+        "message": "Trait categories exceeds 100,000 characters by 25,877 (125,877 total)"
+      }
+    ],
+    "story_start_count": [
+      {
+        "code": "world-config.limit.story-start-count",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "storyStarts"
+        ],
+        "message": "Story starts exceeds 100 by 1 (101 total)"
+      }
+    ],
+    "ability_requirements": [
+      {
+        "code": "world-config.limit.ability-requirements",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "abilities",
+          "a",
+          "requirements"
+        ],
+        "message": "Ability \"a\" requirements exceeds 10 by 2 (12 total)"
+      }
+    ],
+    "ability_count": [
+      {
+        "code": "world-config.limit.ability-count",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "abilities"
+        ],
+        "message": "Abilities exceeds 1,000 by 1 (1,001 total)"
+      }
+    ],
+    "items_section": [
+      {
+        "code": "world-config.limit.items",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "items"
+        ],
+        "message": "Items exceeds 100,000 characters by 21,512 (121,512 total)"
+      }
+    ],
+    "factions_section": [
+      {
+        "code": "world-config.limit.factions",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "factions"
+        ],
+        "message": "Factions exceeds 100,000 characters by 6,072 (106,072 total)"
+      }
+    ],
+    "item_settings": [
+      {
+        "code": "world-config.limit.item-settings",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "itemSettings"
+        ],
+        "message": "Item settings exceeds 5,000 characters by 3,428 (8,428 total)"
+      }
+    ],
+    "invariant_key_name_mismatch": [
+      {
+        "code": "key_name_mismatch",
+        "severity": "error",
+        "check": "invariant",
+        "path": [
+          "traitCategories",
+          "races",
+          "name"
+        ],
+        "message": "Key/name mismatch at \"traitCategories.races.name\": key \"races\" must match name \"Races\""
+      }
+    ],
+    "invariant_npc_level_range_order": [
+      {
+        "code": "world-config.invariant.npc-level-range-order",
+        "severity": "error",
+        "check": "invariant",
+        "path": [
+          "regions",
+          "R",
+          "npcLevelRange"
+        ],
+        "message": "Region \"R\" NPC level range minimum must be less than or equal to maximum."
+      }
+    ],
+    "invariant_npc_level_range_number": [
+      {
+        "code": "world-config.invariant.npc-level-range-number",
+        "severity": "error",
+        "check": "invariant",
+        "path": [
+          "locations",
+          "L",
+          "npcLevelRange"
+        ],
+        "message": "Location \"L\" NPC level range must use positive whole numbers."
+      }
+    ],
+    "invariant_invalid_reference": [
+      {
+        "code": "world-config.invariant.invalid-reference",
+        "severity": "warning",
+        "check": "invariant",
+        "path": [
+          "npcs",
+          "Bob",
+          "faction"
+        ],
+        "message": "Invalid faction \"Ghosts\" at npcs > Bob > faction"
+      }
+    ],
+    "trigger_malformed": [
+      {
+        "code": "world-config.invariant.trigger-malformed",
+        "severity": "error",
+        "check": "invariant",
+        "path": [
+          "triggers",
+          "bad"
+        ],
+        "message": "Trigger \"bad\" is malformed (missing conditions or effects)"
+      }
+    ],
+    "trigger_item_malformed": [],
+    "trigger_size": [
+      {
+        "code": "world-config.limit.trigger-size",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers",
+          "big"
+        ],
+        "message": "Trigger \"big\" exceeds 10,000 characters by 1,105 (11,105 total)"
+      },
+      {
+        "code": "world-config.limit.trigger-item-text",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers",
+          "big",
+          "conditions",
+          0,
+          "text"
+        ],
+        "message": "Trigger \"big\" condition 0 text exceeds 1,000 characters by 10,000 (11,000 total)"
+      }
+    ],
+    "trigger_item_text": [
+      {
+        "code": "world-config.limit.trigger-item-text",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers",
+          "it",
+          "conditions",
+          0,
+          "text"
+        ],
+        "message": "Trigger \"it\" condition 0 text exceeds 1,000 characters by 100 (1,100 total)"
+      }
+    ],
+    "trigger_item_value": [
+      {
+        "code": "world-config.limit.trigger-item-value",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers",
+          "iv",
+          "conditions",
+          0,
+          "value"
+        ],
+        "message": "Trigger \"iv\" condition 0 value exceeds 100 characters by 102 (202 total)"
+      }
+    ],
+    "semantic_trigger_count": [
+      {
+        "code": "world-config.limit.semantic-trigger-count",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers"
+        ],
+        "message": "Semantic trigger count exceeds 200 by 5 (205 total)"
+      }
+    ],
+    "mechanical_trigger_count": [
+      {
+        "code": "world-config.limit.mechanical-trigger-count",
+        "severity": "error",
+        "check": "limit",
+        "path": [
+          "triggers"
+        ],
+        "message": "Mechanical trigger count exceeds 500 by 5 (505 total)"
+      }
+    ],
+    "trigger_non_serializable": [
+      {
+        "code": "world-config.invariant.trigger-non-serializable",
+        "severity": "error",
+        "check": "invariant",
+        "path": [
+          "triggers",
+          "c"
+        ],
+        "message": "Trigger \"c\" contains non-serializable data"
+      }
+    ]
+  },
+  "codes": {
+    "world-config.limit.npc": {
+      "severity": "error",
+      "check": "limit",
+      "message": "NPC \"n\" exceeds 8,000 characters by 1,023 (9,023 total)"
+    },
+    "world-config.limit.npc-type-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "NPC type \"t\" description exceeds 8,000 characters by 1,000 (9,000 total)"
+    },
+    "world-config.limit.item-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Item \"i\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.faction-basic-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Faction \"f\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.faction-hidden-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Faction \"f\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.region-basic-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Region \"rg\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.region-hidden-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Region \"rg\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.location-basic-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Location \"l\" basicInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.location-hidden-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Location \"l\" hiddenInfo exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.area-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Area \"a\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.realm-basic-info": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Realm \"rm\" basicInfo exceeds 100,000 characters by 10,000 (110,000 total)"
+    },
+    "world-config.limit.trait-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Trait \"t\" description exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.world-lore-text": {
+      "severity": "error",
+      "check": "limit",
+      "message": "World lore \"wl\" text exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.story-world-background": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Story worldBackground exceeds 5,000 characters by 1,000 (6,000 total)"
+    },
+    "world-config.limit.story-quest-generation-guidance": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Story questGenerationGuidance exceeds 5,000 characters by 1,000 (6,000 total)"
+    },
+    "world-config.limit.ability-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Ability \"a\" description exceeds 2,000 characters by 1,000 (3,000 total)"
+    },
+    "world-config.limit.narrator-style": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Narrator Style exceeds 2,000 characters by 500 (2,500 total)"
+    },
+    "world-config.limit.death-instructions": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Death Rules instructions exceeds 4,000 characters by 1,000 (5,000 total)"
+    },
+    "world-config.limit.ai-instruction": {
+      "severity": "error",
+      "check": "limit",
+      "message": "AI instruction \"custom\" for generateStory exceeds 5,000 characters by 1,002 (6,002 total)"
+    },
+    "world-config.limit.story-start": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Story start \"s\" exceeds 4,000 characters by 1,022 (5,022 total)"
+    },
+    "world-config.limit.game-mode-name": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" name exceeds 120 characters by 10 (130 total)"
+    },
+    "world-config.limit.game-mode-description": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" description exceeds 500 characters by 100 (600 total)"
+    },
+    "world-config.limit.game-mode-instructions": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" instructions exceeds 5,000 characters by 1,000 (6,000 total)"
+    },
+    "world-config.limit.game-mode-ask-the-narrator-prompt": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Game mode \"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG\" ask-the-narrator prompt exceeds 1,000 characters by 100 (1,100 total)"
+    },
+    "world-config.limit.ai-task-instructions": {
+      "severity": "error",
+      "check": "limit",
+      "message": "AI task \"generateStory\" instructions exceeds 20,000 characters by 1,748 (21,748 total)"
+    },
+    "world-config.limit.game-modes": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Game modes config exceeds 100,000 characters by 48,842 (148,842 total)"
+    },
+    "world-config.limit.trait-categories": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Trait categories exceeds 100,000 characters by 25,877 (125,877 total)"
+    },
+    "world-config.limit.story-start-count": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Story starts exceeds 100 by 1 (101 total)"
+    },
+    "world-config.limit.ability-requirements": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Ability \"a\" requirements exceeds 10 by 2 (12 total)"
+    },
+    "world-config.limit.ability-count": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Abilities exceeds 1,000 by 1 (1,001 total)"
+    },
+    "world-config.limit.items": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Items exceeds 100,000 characters by 21,512 (121,512 total)"
+    },
+    "world-config.limit.factions": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Factions exceeds 100,000 characters by 6,072 (106,072 total)"
+    },
+    "world-config.limit.item-settings": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Item settings exceeds 5,000 characters by 3,428 (8,428 total)"
+    },
+    "key_name_mismatch": {
+      "severity": "error",
+      "check": "invariant",
+      "message": "Key/name mismatch at \"traitCategories.races.name\": key \"races\" must match name \"Races\""
+    },
+    "world-config.invariant.npc-level-range-order": {
+      "severity": "error",
+      "check": "invariant",
+      "message": "Region \"R\" NPC level range minimum must be less than or equal to maximum."
+    },
+    "world-config.invariant.npc-level-range-number": {
+      "severity": "error",
+      "check": "invariant",
+      "message": "Location \"L\" NPC level range must use positive whole numbers."
+    },
+    "world-config.invariant.invalid-reference": {
+      "severity": "warning",
+      "check": "invariant",
+      "message": "Invalid faction \"Ghosts\" at npcs > Bob > faction"
+    },
+    "world-config.invariant.trigger-malformed": {
+      "severity": "error",
+      "check": "invariant",
+      "message": "Trigger \"bad\" is malformed (missing conditions or effects)"
+    },
+    "world-config.limit.trigger-size": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Trigger \"big\" exceeds 10,000 characters by 1,105 (11,105 total)"
+    },
+    "world-config.limit.trigger-item-text": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Trigger \"big\" condition 0 text exceeds 1,000 characters by 10,000 (11,000 total)"
+    },
+    "world-config.limit.trigger-item-value": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Trigger \"iv\" condition 0 value exceeds 100 characters by 102 (202 total)"
+    },
+    "world-config.limit.semantic-trigger-count": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Semantic trigger count exceeds 200 by 5 (205 total)"
+    },
+    "world-config.limit.mechanical-trigger-count": {
+      "severity": "error",
+      "check": "limit",
+      "message": "Mechanical trigger count exceeds 500 by 5 (505 total)"
+    },
+    "world-config.invariant.trigger-non-serializable": {
+      "severity": "error",
+      "check": "invariant",
+      "message": "Trigger \"c\" contains non-serializable data"
+    }
+  },
+  "sourceCodes": [
+    "world-config.invariant.invalid-reference",
+    "world-config.invariant.npc-level-range-number",
+    "world-config.invariant.npc-level-range-order",
+    "world-config.invariant.trigger-item-malformed",
+    "world-config.invariant.trigger-malformed",
+    "world-config.invariant.trigger-non-serializable",
+    "world-config.limit.ability-count",
+    "world-config.limit.ability-description",
+    "world-config.limit.ability-requirements",
+    "world-config.limit.ai-instruction",
+    "world-config.limit.ai-task-instructions",
+    "world-config.limit.area-description",
+    "world-config.limit.death-instructions",
+    "world-config.limit.faction-basic-info",
+    "world-config.limit.faction-hidden-info",
+    "world-config.limit.factions",
+    "world-config.limit.game-mode-ask-the-narrator-prompt",
+    "world-config.limit.game-mode-description",
+    "world-config.limit.game-mode-instructions",
+    "world-config.limit.game-mode-name",
+    "world-config.limit.game-modes",
+    "world-config.limit.item-description",
+    "world-config.limit.item-settings",
+    "world-config.limit.items",
+    "world-config.limit.location-basic-info",
+    "world-config.limit.location-hidden-info",
+    "world-config.limit.locations",
+    "world-config.limit.mechanical-trigger-count",
+    "world-config.limit.narrator-style",
+    "world-config.limit.npc",
+    "world-config.limit.npc-type-description",
+    "world-config.limit.npc-types",
+    "world-config.limit.npcs",
+    "world-config.limit.realm-basic-info",
+    "world-config.limit.region-basic-info",
+    "world-config.limit.region-hidden-info",
+    "world-config.limit.regions",
+    "world-config.limit.semantic-trigger-count",
+    "world-config.limit.story-quest-generation-guidance",
+    "world-config.limit.story-start",
+    "world-config.limit.story-start-count",
+    "world-config.limit.story-world-background",
+    "world-config.limit.total-size",
+    "world-config.limit.trait-categories",
+    "world-config.limit.trait-description",
+    "world-config.limit.trigger-item-text",
+    "world-config.limit.trigger-item-value",
+    "world-config.limit.trigger-size",
+    "world-config.limit.world-lore",
+    "world-config.limit.world-lore-text",
+    "world-config.schema.exception",
+    "world-config.schema.invalid-input"
+  ],
+  "untriggered": [
+    "world-config.invariant.trigger-item-malformed",
+    "world-config.limit.locations",
+    "world-config.limit.npc-types",
+    "world-config.limit.npcs",
+    "world-config.limit.regions",
+    "world-config.limit.total-size",
+    "world-config.limit.world-lore",
+    "world-config.schema.exception",
+    "world-config.schema.invalid-input"
+  ]
+}

@@ -1,0 +1,2261 @@
+{
+  "uri": "world-config.json",
+  "fileMatch": [
+    "*"
+  ],
+  "schema": {
+    "type": "object",
+    "properties": {
+      "configVersion": {
+        "oneOf": []
+      },
+      "heroesVersion": {
+        "oneOf": []
+      },
+      "aiInstructions": {
+        "oneOf": []
+      },
+      "storySettings": {
+        "type": "object",
+        "properties": {
+          "worldBackground": {
+            "type": "string"
+          },
+          "questGenerationGuidance": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "worldBackground",
+          "questGenerationGuidance"
+        ]
+      },
+      "narratorStyle": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "oneOf": []
+          }
+        ]
+      },
+      "gameModes": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "instructions": {
+              "type": "string"
+            },
+            "difficulty": {
+              "type": "string"
+            },
+            "askTheNarratorPrompt": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "instructions"
+          ]
+        }
+      },
+      "worldLore": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      },
+      "embeddings": {
+        "oneOf": []
+      },
+      "triggers": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "story"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "action"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "story-text"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "action-text"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "greaterThan",
+                          "lessThan",
+                          "greaterThanOrEqual",
+                          "lessThanOrEqual"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "player-level"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "greaterThan",
+                          "lessThan",
+                          "greaterThanOrEqual",
+                          "lessThanOrEqual"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "game-tick"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-realm"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-region"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-location"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-area"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "greaterThan",
+                          "lessThan",
+                          "greaterThanOrEqual",
+                          "lessThanOrEqual"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "player-resource"
+                        ]
+                      },
+                      "resource": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "resource"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals"
+                        ]
+                      },
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "known-entity"
+                        ]
+                      },
+                      "entity": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "entity"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "contains",
+                          "notContains"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "player-traits"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "contains",
+                          "notContains"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "quests-completed"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "contains",
+                          "notContains",
+                          "regex"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "read-string"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals",
+                          "greaterThan",
+                          "lessThan",
+                          "greaterThanOrEqual",
+                          "lessThanOrEqual"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "read-number"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "equals",
+                          "notEquals"
+                        ]
+                      },
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "read-boolean"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "contains",
+                          "notContains"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "read-array"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  }
+                ]
+              }
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "story"
+                        ]
+                      },
+                      "instruction": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "instruction"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "quest-progress"
+                        ]
+                      },
+                      "questId": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "questId"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-realm"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-region"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-location"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "party-area"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "add",
+                          "subtract",
+                          "multiply",
+                          "divide",
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "player-resource"
+                        ]
+                      },
+                      "resource": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "resource"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "known-entity"
+                        ]
+                      },
+                      "entity": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "entity"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set",
+                          "add",
+                          "remove"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "player-traits"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "quest-init"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "write-string"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "add",
+                          "subtract",
+                          "multiply",
+                          "divide",
+                          "set"
+                        ]
+                      },
+                      "value": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "write-number"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "write-boolean"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "key"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "set",
+                          "add",
+                          "remove"
+                        ]
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "write-array"
+                        ]
+                      },
+                      "key": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "value",
+                      "type",
+                      "key"
+                    ]
+                  }
+                ]
+              }
+            },
+            "script": {
+              "type": "string"
+            },
+            "recurring": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "conditions",
+            "effects"
+          ]
+        }
+      },
+      "storyStarts": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "storyStart": {
+              "type": "string"
+            },
+            "locations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "locationAreas": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "startingQuests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "startingItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "item",
+                  "quantity"
+                ]
+              }
+            },
+            "isDefault": {
+              "type": "boolean"
+            },
+            "startingPartyNPCs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "firstQuest": {
+              "type": "string"
+            },
+            "questGenerationGuidance": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "storyStart",
+            "locations",
+            "locationAreas"
+          ]
+        }
+      },
+      "abilities": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "requirements": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "resource",
+                          "attribute",
+                          "skill",
+                          "trait"
+                        ]
+                      },
+                      "variable": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "variable",
+                      "amount"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "characterLevel"
+                        ]
+                      },
+                      "amount": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "amount"
+                    ]
+                  }
+                ]
+              }
+            },
+            "bonus": {
+              "type": "number"
+            },
+            "cooldown": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "requirements",
+            "bonus",
+            "cooldown"
+          ]
+        }
+      },
+      "npcTypes": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "vulnerabilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "resistances": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "immunities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "vulnerabilities",
+            "resistances",
+            "immunities",
+            "description"
+          ]
+        }
+      },
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "bonuses": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "resource",
+                      "stat",
+                      "attribute",
+                      "skill"
+                    ]
+                  },
+                  "variable": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "type",
+                  "variable",
+                  "value"
+                ]
+              }
+            },
+            "slot": {
+              "type": "string"
+            },
+            "mediaContent": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "category",
+            "description",
+            "bonuses"
+          ]
+        }
+      },
+      "realms": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "basicInfo": {
+              "type": "string"
+            },
+            "known": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "basicInfo"
+          ]
+        }
+      },
+      "regions": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "basicInfo": {
+              "type": "string"
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "realm": {
+              "type": "string"
+            },
+            "factions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "hiddenInfo": {
+              "type": "string"
+            },
+            "known": {
+              "type": "boolean"
+            },
+            "npcLevelRange": {
+              "type": "object"
+            },
+            "imageUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "basicInfo",
+            "x",
+            "y"
+          ]
+        }
+      },
+      "locations": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "basicInfo": {
+              "type": "string"
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number"
+            },
+            "region": {
+              "type": "string"
+            },
+            "complexityType": {
+              "type": "string",
+              "enum": [
+                "simple",
+                "complex",
+                "wilderness"
+              ]
+            },
+            "detailType": {
+              "type": "string",
+              "enum": [
+                "basic",
+                "detailed"
+              ]
+            },
+            "areas": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "paths": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "description",
+                  "paths"
+                ]
+              }
+            },
+            "factions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "visualTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "hiddenInfo": {
+              "type": "string"
+            },
+            "known": {
+              "type": "boolean"
+            },
+            "npcLevelRange": {
+              "type": "object"
+            },
+            "imageUrl": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "basicInfo",
+            "x",
+            "y",
+            "radius",
+            "region",
+            "complexityType",
+            "detailType"
+          ]
+        }
+      },
+      "factions": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "basicInfo": {
+              "type": "string"
+            },
+            "factionType": {
+              "type": "string",
+              "enum": [
+                "minor",
+                "major"
+              ]
+            },
+            "hiddenInfo": {
+              "type": "string"
+            },
+            "known": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "basicInfo",
+            "factionType"
+          ]
+        }
+      },
+      "npcs": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "currentLocation": {
+              "type": "string"
+            },
+            "currentArea": {
+              "type": "string"
+            },
+            "properName": {
+              "type": "string"
+            },
+            "gender": {
+              "type": "string"
+            },
+            "tier": {
+              "type": "string",
+              "enum": [
+                "trivial",
+                "weak",
+                "average",
+                "strong",
+                "elite",
+                "boss",
+                "mythic"
+              ]
+            },
+            "faction": {
+              "type": "string"
+            },
+            "basicInfo": {
+              "type": "string"
+            },
+            "hiddenInfo": {
+              "type": "string"
+            },
+            "visualDescription": {
+              "type": "string"
+            },
+            "portraitUrl": {
+              "type": "string"
+            },
+            "personality": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "abilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "known": {
+              "type": "boolean"
+            },
+            "detailType": {
+              "type": "string",
+              "enum": [
+                "basic",
+                "detailed"
+              ]
+            },
+            "level": {
+              "type": "number"
+            },
+            "hpMax": {
+              "type": "number"
+            },
+            "hpCurrent": {
+              "type": "number"
+            },
+            "healthMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "name",
+            "type",
+            "currentLocation",
+            "currentArea"
+          ]
+        }
+      },
+      "quests": {
+        "oneOf": []
+      },
+      "attributeSettings": {
+        "type": "object",
+        "properties": {
+          "attributeNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "startingAttributeValue": {
+            "type": "number"
+          },
+          "startingAttributePoints": {
+            "type": "number"
+          },
+          "attributeStatModifiers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "variable": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "variable",
+                "amount"
+              ]
+            }
+          },
+          "maxStartingAttribute": {
+            "type": "number"
+          },
+          "lowAttributeThreshold": {
+            "type": "number"
+          },
+          "lowAttributeTraits": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "attributeBonusModifier": {
+            "type": "number"
+          },
+          "attributeDamageModifiers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "attributeDamageReductionModifiers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "attributeNames",
+          "startingAttributeValue",
+          "startingAttributePoints",
+          "attributeStatModifiers",
+          "maxStartingAttribute",
+          "lowAttributeThreshold",
+          "lowAttributeTraits",
+          "attributeBonusModifier",
+          "attributeDamageModifiers",
+          "attributeDamageReductionModifiers"
+        ]
+      },
+      "skills": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "attribute": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "startingItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "item",
+                  "quantity"
+                ]
+              }
+            }
+          },
+          "required": [
+            "name",
+            "attribute",
+            "type",
+            "description",
+            "startingItems"
+          ]
+        }
+      },
+      "skillSettings": {
+        "type": "object",
+        "properties": {
+          "trainingCooldown": {
+            "type": "number"
+          },
+          "skillXPRewards": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "skillBonusModifier": {
+            "type": "number"
+          },
+          "xpFromNewSkill": {
+            "type": "number"
+          },
+          "maxSkillLevel": {
+            "type": "number"
+          },
+          "maxSkillSuccessLevel": {
+            "type": "number"
+          },
+          "charXPPerSkillLevel": {
+            "type": "number"
+          },
+          "baseXPFromSkillUpgrade": {
+            "type": "number"
+          },
+          "additionalXPRequiredPerSkillLevel": {
+            "type": "number"
+          },
+          "startingXPToLevelUpSkill": {
+            "type": "number"
+          },
+          "baseChanceToLearnNewSkill": {
+            "type": "number"
+          },
+          "skillLearningBonusModifier": {
+            "type": "number"
+          },
+          "skillTypeDifficultyBonus": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number"
+            }
+          },
+          "newSkillGenerationEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "trainingCooldown",
+          "skillXPRewards",
+          "skillBonusModifier",
+          "xpFromNewSkill",
+          "maxSkillLevel",
+          "maxSkillSuccessLevel",
+          "charXPPerSkillLevel",
+          "baseXPFromSkillUpgrade",
+          "additionalXPRequiredPerSkillLevel",
+          "startingXPToLevelUpSkill",
+          "baseChanceToLearnNewSkill",
+          "skillLearningBonusModifier",
+          "skillTypeDifficultyBonus",
+          "newSkillGenerationEnabled"
+        ]
+      },
+      "traits": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "quirk": {
+              "type": "string"
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "skill": {
+                    "type": "string"
+                  },
+                  "modifier": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "skill",
+                  "modifier"
+                ]
+              }
+            },
+            "attributes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "attribute": {
+                    "type": "string"
+                  },
+                  "modifier": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "attribute",
+                  "modifier"
+                ]
+              }
+            },
+            "resources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resource": {
+                    "type": "string"
+                  },
+                  "modifier": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "resource",
+                  "modifier"
+                ]
+              }
+            },
+            "startingItems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "item",
+                  "quantity"
+                ]
+              }
+            },
+            "abilities": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "unlockedBy": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "excludedBy": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "quirk",
+            "skills",
+            "attributes",
+            "resources",
+            "startingItems",
+            "abilities",
+            "unlockedBy",
+            "excludedBy"
+          ]
+        }
+      },
+      "traitCategories": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "maxSelections": {
+              "type": "number"
+            },
+            "traits": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "name",
+            "maxSelections",
+            "traits"
+          ]
+        }
+      },
+      "locationSettings": {
+        "type": "object",
+        "properties": {
+          "regionSize": {
+            "type": "number"
+          },
+          "simpleRadius": {
+            "type": "number"
+          },
+          "complexRadius": {
+            "type": "number"
+          },
+          "regionLocationCount": {
+            "type": "number"
+          },
+          "regionFactionCount": {
+            "type": "number"
+          },
+          "avgTravelDistance": {
+            "type": "number"
+          },
+          "minTravelDistance": {
+            "type": "number"
+          },
+          "newRegionGenerationEnabled": {
+            "type": "boolean"
+          },
+          "encountersEnabled": {
+            "type": "boolean"
+          },
+          "regionMapBorderFeatheringEnabled": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "regionSize",
+          "simpleRadius",
+          "complexRadius",
+          "regionLocationCount",
+          "regionFactionCount",
+          "avgTravelDistance",
+          "minTravelDistance",
+          "newRegionGenerationEnabled",
+          "encountersEnabled",
+          "regionMapBorderFeatheringEnabled"
+        ]
+      },
+      "itemSettings": {
+        "type": "object",
+        "properties": {
+          "currencyName": {
+            "type": "string"
+          },
+          "itemCategories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "itemSlots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "slot": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "slot",
+                "category",
+                "quantity"
+              ]
+            }
+          },
+          "startingItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "item",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "currencyName",
+          "itemCategories",
+          "itemSlots",
+          "startingItems"
+        ]
+      },
+      "combatSettings": {
+        "type": "object",
+        "properties": {
+          "minCombatXP": {
+            "type": "number"
+          },
+          "baseCombatXP": {
+            "type": "number"
+          },
+          "abilityCooldown": {
+            "type": "number"
+          },
+          "abilityBonus": {
+            "type": "number"
+          },
+          "npcDailyHealingAmount": {
+            "type": "number"
+          },
+          "damageTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "minCombatXP",
+          "baseCombatXP",
+          "abilityCooldown",
+          "abilityBonus",
+          "npcDailyHealingAmount",
+          "damageTypes"
+        ]
+      },
+      "otherSettings": {
+        "type": "object",
+        "properties": {
+          "startingCharacterLevelUpRequirement": {
+            "type": "number"
+          },
+          "extraRequiredXPPerCharacterLevel": {
+            "type": "number"
+          },
+          "maxCharacterLevel": {
+            "type": "number"
+          },
+          "npcHealthPerLevel": {
+            "type": "number"
+          },
+          "npcMinHealth": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "startingCharacterLevelUpRequirement",
+          "extraRequiredXPPerCharacterLevel",
+          "maxCharacterLevel",
+          "npcHealthPerLevel",
+          "npcMinHealth"
+        ]
+      },
+      "tipSettings": {
+        "type": "object",
+        "properties": {
+          "tips": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tipDisplayEnabled": {
+            "type": "boolean"
+          },
+          "tipTurnInterval": {
+            "type": "number"
+          },
+          "tipMinimumTurns": {
+            "type": "number"
+          },
+          "tipMaximumTurns": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "tips",
+          "tipDisplayEnabled",
+          "tipTurnInterval",
+          "tipMinimumTurns",
+          "tipMaximumTurns"
+        ]
+      },
+      "resourceSettings": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "initialValue": {
+              "type": "number"
+            },
+            "maxValue": {
+              "type": "number"
+            },
+            "rechargeRate": {
+              "type": "integer"
+            },
+            "restRechargeMultiplier": {
+              "type": "number"
+            },
+            "color": {
+              "type": "string"
+            },
+            "gainPerLevel": {
+              "type": "number"
+            },
+            "usageInstructions": {
+              "type": "string"
+            },
+            "isHealth": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "name",
+            "initialValue",
+            "maxValue",
+            "rechargeRate",
+            "restRechargeMultiplier",
+            "color",
+            "gainPerLevel"
+          ]
+        }
+      },
+      "death": {
+        "type": "object",
+        "properties": {
+          "permadeath": {
+            "type": "boolean"
+          },
+          "instructions": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "permadeath",
+          "instructions"
+        ]
+      },
+      "nameFilterSettings": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "replacements": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "replacements"
+          ]
+        }
+      },
+      "premadeCharacters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "gender": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "attributes": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            "traits": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "backstory": {
+              "type": "string"
+            },
+            "portraitUrl": {
+              "type": "string"
+            },
+            "replacesNpc": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "gender",
+            "description",
+            "attributes",
+            "traits",
+            "backstory",
+            "portraitUrl",
+            "replacesNpc"
+          ]
+        }
+      },
+      "authorSeeds": {
+        "oneOf": []
+      },
+      "characterArchetypes": {
+        "oneOf": []
+      },
+      "locationArchetypes": {
+        "oneOf": []
+      },
+      "regionArchetypes": {
+        "oneOf": []
+      },
+      "encounterElements": {
+        "oneOf": []
+      },
+      "randomNames": {
+        "type": "object",
+        "properties": {
+          "male": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "female": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "male",
+          "female"
+        ]
+      },
+      "mods": {
+        "oneOf": [
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "shortId": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "shortId",
+                "version"
+              ]
+            }
+          },
+          {
+            "oneOf": []
+          }
+        ]
+      },
+      "characterCreationMusic": {
+        "type": "object",
+        "properties": {
+          "fantasy": {
+            "type": "string",
+            "enum": [
+              "fantasy"
+            ]
+          },
+          "nonfantasy": {
+            "type": "string",
+            "enum": [
+              "nonfantasy"
+            ]
+          }
+        },
+        "required": [
+          "fantasy",
+          "nonfantasy"
+        ]
+      },
+      "imagePromptConfiguration": {
+        "oneOf": []
+      }
+    },
+    "required": []
+  }
+}

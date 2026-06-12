@@ -1,0 +1,36 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { TAB_INFO } from "~/lib/tabs";
+
+export async function getStaticPaths() {
+  return Object.keys(TAB_INFO).map((tab) => ({ params: { tab } }));
+}
+
+const { tab } = Astro.params;
+const info = TAB_INFO[tab as string]!;
+
+type Section = CollectionEntry<"sections">;
+const allSections = await getCollection("sections");
+const sections = allSections
+  .filter((s: Section) => s.data.tab === tab)
+  .sort((a: Section, b: Section) => a.data.title.localeCompare(b.data.title));
+---
+<BaseLayout title={info.title + " - VoyageWiki"} description={info.lede}>
+  <article class="section-article">
+    <header class="guide-header">
+      <h1 class="guide-header__title">{info.title}</h1>
+      <p class="guide-header__summary">{info.lede}</p>
+    </header>
+
+    <div class="home-grid">
+      {sections.map((s: Section) => (
+        <a class="home-card" href={"/" + s.data.tab + "/" + s.data.section}>
+          <span class="home-card__label">{s.data.title}</span>
+          <span class="home-card__title">{s.data.section}</span>
+          <span class="home-card__body">{s.data.summary}</span>
+        </a>
+      ))}
+    </div>
+  </article>
+</BaseLayout>

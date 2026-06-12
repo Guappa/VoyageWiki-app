@@ -1,0 +1,368 @@
+.note-block {
+  display: flex;
+  box-shadow: var(--shadow-card);
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-subtle);
+  border-left: none;
+  margin: var(--space-4) 0;
+}
+
+.note-block__icon {
+  font-size: 2.2em;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+  align-self: center;
+}
+
+.note-block__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.note-block__body > p:first-child { margin-top: 0; }
+.note-block__body > p:last-child { margin-bottom: 0; }
+/* Lighthouse accessibility: links inside note callouts need a non-color
+   affordance (underline) so users with color-vision differences can distinguish
+   them from surrounding text. The wiki has muted-blue links in note callouts that
+   only differ from body text by color, which fails WCAG 1.4.1. */
+.note-block__body a:not(.field-tip-link) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.note-block__body a:not(.field-tip-link):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Long inline-code in note callouts can overflow narrow viewports; allow breaks anywhere. */
+.note-block__body code,
+.note-block__body a > code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 640px) {
+  .note-block {
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .note-block__icon { font-size: 1.8em; }
+}
+
+
+.table-wrap {
+  overflow-x: visible;
+}
+.table-wrap td, .table-wrap th {
+  overflow-wrap: break-word;
+  vertical-align: top;
+  min-width: 0;
+}
+.table-wrap td:first-child,
+.table-wrap th:first-child {
+  white-space: nowrap;
+}
+.table-wrap td:nth-child(2),
+.table-wrap th:nth-child(2) {
+  white-space: nowrap;
+}
+.table-wrap th { white-space: nowrap; }
+/* long inline-code chunks must wrap to stay within the cell */
+.table-wrap td code { white-space: normal; overflow-wrap: anywhere; }
+.table-wrap > table {
+  min-width: 0;
+  table-layout: auto;
+}
+
+.code-block pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  overflow-x: visible;
+}
+.code-block pre code {
+  white-space: pre-wrap;
+}
+
+
+.code-block--collapsed pre {
+  max-height: 320px;
+  overflow: hidden;
+}
+.code-block--collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 36px;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--color-bg-code));
+}
+.code-block__expand-bar {
+  display: block;
+  width: 100%;
+  height: 36px;
+  border: none;
+  border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-code-toolbar);
+  color: var(--color-link);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.code-block__expand-bar:hover {
+  background: var(--color-bg-subtle);
+}
+.code-block:not(.code-block--collapsed) .code-block__expand-bar {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* Force tables to share available width and wrap content at any font size */
+.table-wrap > table {
+  table-layout: fixed;
+  width: 100%;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.table-wrap > table th,
+.table-wrap > table td {
+  overflow-wrap: anywhere;
+}
+.table-wrap > table td:first-child,
+.table-wrap > table th:first-child,
+.table-wrap > table td:nth-child(2),
+.table-wrap > table th:nth-child(2) {
+  white-space: normal;
+}
+
+/* Zebra-striping + horizontal row separators so short cells visibly belong to their row */
+.table-wrap > table tbody tr:nth-child(even) td {
+  background: var(--color-bg-subtle);
+}
+.table-wrap > table tbody tr td {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.table-wrap > table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+
+
+
+blockquote.note-block {
+  margin: 16px 0;
+  max-width: 100%;
+}
+
+/* Subtle vertical column dividers inside wrapped tables */
+.table-wrap > table th,
+.table-wrap > table td {
+  border-right: 1px solid var(--color-border-subtle);
+}
+.table-wrap > table th:last-child,
+.table-wrap > table td:last-child {
+  border-right: none;
+}
+
+/* Expanded fields under the active sidebar section */
+.sidebar-nav__sublist {
+  list-style: none;
+  margin: 4px 0 8px 0;
+  padding: 0 0 0 16px;
+  border-left: 1px solid var(--color-border-subtle);
+}
+.sidebar-nav__sublist li { margin: 0; }
+.sidebar-nav__sublink {
+  display: block;
+  padding: 4px 8px;
+  font-size: 0.88em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+}
+.sidebar-nav__sublink:hover {
+  background: var(--color-bg-subtle);
+  color: var(--color-link);
+  text-decoration: none;
+}
+.sidebar-nav__sublink code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1em;
+  color: inherit;
+}
+
+
+.code-block[data-language="text"] {
+  border: 1px solid var(--color-border-subtle);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  margin: 16px 0;
+}
+.code-block[data-language="text"] .code-block__toolbar {
+  display: none;
+}
+.code-block[data-language="text"] pre {
+  background: transparent !important;
+  border: none !important;
+  padding: 14px 18px;
+  margin: 0;
+  border-radius: var(--radius-md);
+  color: var(--color-text) !important;
+  font-size: 0.92em;
+  line-height: 1.55;
+}
+.code-block[data-language="text"] pre code,
+.code-block[data-language="text"] pre code span {
+  color: var(--color-text) !important;
+  background: transparent !important;
+}
+
+/* Section hero key chip - matches JSON property color from code blocks */
+.section-hero__title-key {
+  display: block;
+  margin: 0 0 16px;
+}
+.section-hero__title-key code {
+  display: inline-block;
+  font-size: 0.95rem;
+  color: #001080;
+  background: var(--color-bg-code);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 3px 10px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+html[data-theme="dark"] .section-hero__title-key code {
+  color: #9CDCFE;
+}
+
+
+.section-article :where(p, li, td, blockquote, h2, h3, h4, h5) code,
+.home-article :where(p, li, td, blockquote) code {
+  padding: 1px 6px;
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-text) 6%, transparent);
+  border-radius: 4px;
+  font-size: 0.88em;
+  white-space: nowrap;
+}
+html[data-theme="dark"] .section-article :where(p, li, td, blockquote, h2, h3, h4, h5) code,
+html[data-theme="dark"] .home-article :where(p, li, td, blockquote) code {
+  background: color-mix(in srgb, white 6%, transparent);
+  border-color: color-mix(in srgb, white 8%, transparent);
+}
+.section-article pre code,
+.home-article pre code,
+.code-block code,
+.schema-card__key,
+.section-hero__title-key code,
+.sidebar-nav__sublink code,
+.home-card__label code {
+  padding: 0;
+  background: transparent;
+  border: none;
+}
+
+
+.note-block { border-left: 3px solid var(--color-border-subtle); }
+.note-block--warning { border-left-color: var(--color-warning); }
+.note-block--issue   { border-left-color: var(--color-warning); }
+.note-block--info    { border-left-color: var(--color-link); }
+.note-block--note    { border-left-color: var(--color-link); }
+.note-block--confirmed { border-left-color: var(--color-success); }
+.note-block--narrator  { border-left-color: #b266ff; }
+.note-block--inferred  { border-left-color: #b266ff; }
+.note-block--confusing { border-left-color: var(--color-text-muted); }
+.note-block--dev      { border-left-color: var(--color-text-muted); }
+.note-block--update   { border-left-color: var(--color-text-muted); }
+
+
+.section-article :where(h2, h3, h4)[id] { position: relative; }
+.heading-anchor {
+  position: absolute;
+  left: -1.4em;
+  top: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.3em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.85em;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.section-article :where(h2, h3, h4)[id]:hover .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+.heading-anchor:hover { color: var(--color-link); }
+@media (max-width: 800px) {
+  .heading-anchor { display: none; }
+}
+
+/* Search keyboard shortcut hint */
+.search__inputwrap { position: relative; }
+.search__shortcut {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 2px 6px;
+  font-size: 0.72em;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  pointer-events: none;
+  user-select: none;
+}
+.search__input { padding-right: 56px; }
+.search__inputwrap:focus-within .search__shortcut { opacity: 0; }
+
+/* Last-updated timestamp */
+.page-updated {
+  margin: var(--space-2) 0 var(--space-4);
+  font-size: 0.82em;
+  color: var(--color-text-muted);
+}
+.page-updated time { font-weight: 600; }
+
+/* Last updated badge: floats to the top-right corner of the hero card */
+.section-hero__updated {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+  font-size: 0.78em;
+  color: var(--color-text-muted);
+  line-height: 1.2;
+  pointer-events: none;
+}
+.section-hero__updated-label {
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.section-hero__updated time {
+  font-weight: 600;
+  color: var(--color-text);
+}

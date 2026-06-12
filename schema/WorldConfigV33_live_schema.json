@@ -1,0 +1,1847 @@
+{
+  "_type": "intersection",
+  "parts": [
+    {
+      "_type": "required",
+      "fields": {
+        "configVersion": {
+          "_type": "literal",
+          "value": "V33"
+        },
+        "heroesVersion": {
+          "_type": "literal",
+          "value": 33
+        },
+        "aiInstructions": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "record",
+            "domain": "string",
+            "codomain": "string"
+          }
+        },
+        "storySettings": {
+          "_type": "intersection",
+          "parts": [
+            {
+              "_type": "required",
+              "fields": {
+                "worldBackground": "string"
+              }
+            },
+            {
+              "_type": "partial",
+              "fields": {
+                "questGenerationGuidance": "string"
+              }
+            }
+          ]
+        },
+        "narratorStyle": {
+          "_type": "union",
+          "of": [
+            "string",
+            "undefined"
+          ]
+        },
+        "gameModes": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "description": "string",
+                  "instructions": "string"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "difficulty": "string",
+                  "askTheNarratorPrompt": "string"
+                }
+              }
+            ]
+          }
+        },
+        "worldLore": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "text": "string"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "embeddingId": "string"
+                }
+              }
+            ]
+          }
+        },
+        "embeddings": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "array",
+            "of": "number"
+          }
+        },
+        "triggers": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "conditions": {
+                    "_type": "array",
+                    "of": {
+                      "_type": "union",
+                      "of": [
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "intersection",
+                              "parts": [
+                                {
+                                  "_type": "required",
+                                  "fields": {
+                                    "type": {
+                                      "_type": "union",
+                                      "of": [
+                                        {
+                                          "_type": "literal",
+                                          "value": "story"
+                                        },
+                                        {
+                                          "_type": "literal",
+                                          "value": "action"
+                                        }
+                                      ]
+                                    },
+                                    "query": "string"
+                                  }
+                                },
+                                {
+                                  "_type": "partial",
+                                  "fields": {
+                                    "embeddingId": "string"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "story"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "action"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "equals"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "notEquals"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "contains"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "notContains"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "regex"
+                                    }
+                                  ]
+                                },
+                                "value": "string"
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "story-text"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "action-text"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "equals"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "notEquals"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "greaterThan"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "lessThan"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "greaterThanOrEqual"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "lessThanOrEqual"
+                                    }
+                                  ]
+                                },
+                                "value": "number"
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "player-level"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "game-tick"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-realm"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-region"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-location"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-area"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "player-resource"
+                                },
+                                "resource": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "equals"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "notEquals"
+                                    }
+                                  ]
+                                },
+                                "value": "boolean"
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "known-entity"
+                                },
+                                "entity": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "contains"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "notContains"
+                                    }
+                                  ]
+                                },
+                                "value": {
+                                  "_type": "union",
+                                  "of": [
+                                    "string",
+                                    "number",
+                                    "boolean"
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "player-traits"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "quests-completed"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "read-string"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "read-number"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "read-boolean"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "read-array"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "effects": {
+                    "_type": "array",
+                    "of": {
+                      "_type": "union",
+                      "of": [
+                        {
+                          "_type": "required",
+                          "fields": {
+                            "type": {
+                              "_type": "literal",
+                              "value": "story"
+                            },
+                            "instruction": "string"
+                          }
+                        },
+                        {
+                          "_type": "required",
+                          "fields": {
+                            "type": {
+                              "_type": "literal",
+                              "value": "quest-progress"
+                            },
+                            "questId": "string"
+                          }
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "literal",
+                                  "value": "set"
+                                },
+                                "value": "string"
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-realm"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-region"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-location"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "party-area"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "add"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "subtract"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "multiply"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "divide"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "set"
+                                    }
+                                  ]
+                                },
+                                "value": "number"
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "player-resource"
+                                },
+                                "resource": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "intersection",
+                              "parts": [
+                                {
+                                  "_type": "required",
+                                  "fields": {
+                                    "operator": {
+                                      "_type": "union",
+                                      "of": [
+                                        {
+                                          "_type": "literal",
+                                          "value": "set"
+                                        },
+                                        {
+                                          "_type": "literal",
+                                          "value": "toggle"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "_type": "partial",
+                                  "fields": {
+                                    "value": "boolean"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "known-entity"
+                                },
+                                "entity": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "operator": {
+                                  "_type": "union",
+                                  "of": [
+                                    {
+                                      "_type": "literal",
+                                      "value": "set"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "add"
+                                    },
+                                    {
+                                      "_type": "literal",
+                                      "value": "remove"
+                                    }
+                                  ]
+                                },
+                                "value": {
+                                  "_type": "union",
+                                  "of": [
+                                    "string",
+                                    "number",
+                                    "boolean",
+                                    {
+                                      "_type": "array",
+                                      "of": {
+                                        "_type": "union",
+                                        "of": [
+                                          "string",
+                                          "number",
+                                          "boolean"
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "player-traits"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "quest-init"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "write-string"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "write-number"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "write-boolean"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "_type": "intersection",
+                          "parts": [
+                            "(recursive)",
+                            {
+                              "_type": "required",
+                              "fields": {
+                                "type": {
+                                  "_type": "literal",
+                                  "value": "write-array"
+                                },
+                                "key": "string"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "script": "string",
+                  "recurring": "boolean"
+                }
+              }
+            ]
+          }
+        },
+        "storyStarts": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "description": "string",
+                  "storyStart": "string",
+                  "locations": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "locationAreas": {
+                    "_type": "array",
+                    "of": "string"
+                  }
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "startingQuests": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "startingItems": {
+                    "_type": "array",
+                    "of": {
+                      "_type": "required",
+                      "fields": {
+                        "item": "string",
+                        "quantity": "number"
+                      }
+                    }
+                  },
+                  "isDefault": "boolean",
+                  "startingPartyNPCs": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "firstQuest": "string",
+                  "questGenerationGuidance": "string"
+                }
+              }
+            ]
+          }
+        },
+        "abilities": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "name": "string",
+              "description": "string",
+              "requirements": {
+                "_type": "array",
+                "of": {
+                  "_type": "union",
+                  "of": [
+                    {
+                      "_type": "required",
+                      "fields": {
+                        "type": {
+                          "_type": "union",
+                          "of": [
+                            {
+                              "_type": "literal",
+                              "value": "resource"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "attribute"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "skill"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "trait"
+                            }
+                          ]
+                        },
+                        "variable": "string",
+                        "amount": "number"
+                      }
+                    },
+                    {
+                      "_type": "required",
+                      "fields": {
+                        "type": {
+                          "_type": "literal",
+                          "value": "characterLevel"
+                        },
+                        "amount": "number"
+                      }
+                    }
+                  ]
+                }
+              },
+              "bonus": "number",
+              "cooldown": "number"
+            }
+          }
+        },
+        "npcTypes": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "name": "string",
+              "vulnerabilities": {
+                "_type": "array",
+                "of": "string"
+              },
+              "resistances": {
+                "_type": "array",
+                "of": "string"
+              },
+              "immunities": {
+                "_type": "array",
+                "of": "string"
+              },
+              "description": "string"
+            }
+          }
+        },
+        "items": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "category": "string",
+                  "description": "string",
+                  "bonuses": {
+                    "_type": "array",
+                    "of": {
+                      "_type": "required",
+                      "fields": {
+                        "type": {
+                          "_type": "union",
+                          "of": [
+                            {
+                              "_type": "literal",
+                              "value": "resource"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "stat"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "attribute"
+                            },
+                            {
+                              "_type": "literal",
+                              "value": "skill"
+                            }
+                          ]
+                        },
+                        "variable": "string",
+                        "value": "number"
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "slot": "string",
+                  "mediaContent": "string"
+                }
+              }
+            ]
+          }
+        },
+        "realms": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "basicInfo": "string"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "embeddingId": "string",
+                  "known": "boolean"
+                }
+              }
+            ]
+          }
+        },
+        "regions": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "basicInfo": "string",
+                  "x": "number",
+                  "y": "number"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "realm": "string",
+                  "factions": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "hiddenInfo": "string",
+                  "embeddingId": "string",
+                  "known": "boolean",
+                  "npcLevelRange": {
+                    "_type": "required",
+                    "fields": {
+                      "min": "number",
+                      "max": "number"
+                    }
+                  },
+                  "imageUrl": "string"
+                }
+              }
+            ]
+          }
+        },
+        "locations": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "basicInfo": "string",
+                  "x": "number",
+                  "y": "number",
+                  "radius": "number",
+                  "region": "string",
+                  "complexityType": {
+                    "_type": "union",
+                    "of": [
+                      {
+                        "_type": "literal",
+                        "value": "simple"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "complex"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "wilderness"
+                      }
+                    ]
+                  },
+                  "detailType": {
+                    "_type": "union",
+                    "of": [
+                      {
+                        "_type": "literal",
+                        "value": "basic"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "detailed"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "areas": {
+                    "_type": "record",
+                    "domain": "string",
+                    "codomain": {
+                      "_type": "required",
+                      "fields": {
+                        "description": "string",
+                        "paths": {
+                          "_type": "array",
+                          "of": "string"
+                        }
+                      }
+                    }
+                  },
+                  "factions": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "visualTags": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "hiddenInfo": "string",
+                  "embeddingId": "string",
+                  "known": "boolean",
+                  "npcLevelRange": "(recursive)",
+                  "imageUrl": "string"
+                }
+              }
+            ]
+          }
+        },
+        "factions": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "basicInfo": "string",
+                  "factionType": {
+                    "_type": "union",
+                    "of": [
+                      {
+                        "_type": "literal",
+                        "value": "minor"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "major"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "hiddenInfo": "string",
+                  "embeddingId": "string",
+                  "known": "boolean"
+                }
+              }
+            ]
+          }
+        },
+        "npcs": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "type": "string",
+                  "currentLocation": "string",
+                  "currentArea": "string"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "properName": "string",
+                  "gender": "string",
+                  "tier": {
+                    "_type": "union",
+                    "of": [
+                      {
+                        "_type": "literal",
+                        "value": "trivial"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "weak"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "average"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "strong"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "elite"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "boss"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "mythic"
+                      }
+                    ]
+                  },
+                  "faction": "string",
+                  "basicInfo": "string",
+                  "hiddenInfo": "string",
+                  "visualDescription": "string",
+                  "portraitUrl": "string",
+                  "personality": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "abilities": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "known": "boolean",
+                  "embeddingId": "string",
+                  "detailType": {
+                    "_type": "union",
+                    "of": [
+                      {
+                        "_type": "literal",
+                        "value": "basic"
+                      },
+                      {
+                        "_type": "literal",
+                        "value": "detailed"
+                      }
+                    ]
+                  },
+                  "level": "number",
+                  "hpMax": "number",
+                  "hpCurrent": "number",
+                  "healthMultiplier": "number"
+                }
+              }
+            ]
+          }
+        },
+        "quests": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "union",
+            "of": [
+              {
+                "_type": "intersection",
+                "parts": [
+                  {
+                    "_type": "intersection",
+                    "parts": [
+                      {
+                        "_type": "required",
+                        "fields": {
+                          "name": "string",
+                          "questSource": "string",
+                          "questStatement": "string",
+                          "mainObjective": "string",
+                          "completionCondition": "string"
+                        }
+                      },
+                      {
+                        "_type": "partial",
+                        "fields": {
+                          "conclusive": "boolean",
+                          "questDesignBrief": "string"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "_type": "required",
+                    "fields": {
+                      "detailType": {
+                        "_type": "literal",
+                        "value": "basic"
+                      },
+                      "spatialRelationship": {
+                        "_type": "union",
+                        "of": [
+                          {
+                            "_type": "literal",
+                            "value": "existingLocalArea"
+                          },
+                          {
+                            "_type": "literal",
+                            "value": "newLocalArea"
+                          },
+                          {
+                            "_type": "literal",
+                            "value": "nearbyNewLocation"
+                          },
+                          {
+                            "_type": "literal",
+                            "value": "distantNewLocation"
+                          },
+                          {
+                            "_type": "literal",
+                            "value": "existingLocationNewAreas"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "_type": "intersection",
+                "parts": [
+                  "(recursive)",
+                  {
+                    "_type": "required",
+                    "fields": {
+                      "detailType": {
+                        "_type": "literal",
+                        "value": "detailed"
+                      },
+                      "questLocation": "string"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "attributeSettings": {
+          "_type": "intersection",
+          "parts": [
+            {
+              "_type": "required",
+              "fields": {
+                "attributeNames": {
+                  "_type": "array",
+                  "of": "string"
+                },
+                "startingAttributeValue": "number",
+                "startingAttributePoints": "number",
+                "attributeStatModifiers": {
+                  "_type": "record",
+                  "domain": "string",
+                  "codomain": {
+                    "_type": "required",
+                    "fields": {
+                      "variable": "string",
+                      "amount": "number"
+                    }
+                  }
+                },
+                "maxStartingAttribute": "number",
+                "lowAttributeThreshold": "number",
+                "lowAttributeTraits": {
+                  "_type": "record",
+                  "domain": "string",
+                  "codomain": "string"
+                },
+                "attributeBonusModifier": "number"
+              }
+            },
+            {
+              "_type": "partial",
+              "fields": {
+                "attributeDamageModifiers": {
+                  "_type": "record",
+                  "domain": "string",
+                  "codomain": "number"
+                },
+                "attributeDamageReductionModifiers": {
+                  "_type": "record",
+                  "domain": "string",
+                  "codomain": "number"
+                }
+              }
+            }
+          ]
+        },
+        "skills": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "name": "string",
+              "attribute": "string",
+              "type": "string",
+              "description": "string",
+              "startingItems": {
+                "_type": "array",
+                "of": "(recursive)"
+              }
+            }
+          }
+        },
+        "skillSettings": {
+          "_type": "required",
+          "fields": {
+            "trainingCooldown": "number",
+            "skillXPRewards": {
+              "_type": "record",
+              "domain": "string",
+              "codomain": "number"
+            },
+            "skillBonusModifier": "number",
+            "xpFromNewSkill": "number",
+            "maxSkillLevel": "number",
+            "maxSkillSuccessLevel": "number",
+            "charXPPerSkillLevel": "number",
+            "baseXPFromSkillUpgrade": "number",
+            "additionalXPRequiredPerSkillLevel": "number",
+            "startingXPToLevelUpSkill": "number",
+            "baseChanceToLearnNewSkill": "number",
+            "skillLearningBonusModifier": "number",
+            "skillTypeDifficultyBonus": {
+              "_type": "record",
+              "domain": "string",
+              "codomain": "number"
+            },
+            "newSkillGenerationEnabled": "boolean"
+          }
+        },
+        "traits": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "name": "string",
+              "description": "string",
+              "quirk": "string",
+              "skills": {
+                "_type": "array",
+                "of": {
+                  "_type": "required",
+                  "fields": {
+                    "skill": "string",
+                    "modifier": "number"
+                  }
+                }
+              },
+              "attributes": {
+                "_type": "array",
+                "of": {
+                  "_type": "required",
+                  "fields": {
+                    "attribute": "string",
+                    "modifier": "number"
+                  }
+                }
+              },
+              "resources": {
+                "_type": "array",
+                "of": {
+                  "_type": "required",
+                  "fields": {
+                    "resource": "string",
+                    "modifier": "number"
+                  }
+                }
+              },
+              "startingItems": {
+                "_type": "array",
+                "of": "(recursive)"
+              },
+              "abilities": {
+                "_type": "array",
+                "of": "string"
+              },
+              "unlockedBy": {
+                "_type": "array",
+                "of": "string"
+              },
+              "excludedBy": {
+                "_type": "array",
+                "of": "string"
+              }
+            }
+          }
+        },
+        "traitCategories": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "name": "string",
+              "maxSelections": "number",
+              "traits": {
+                "_type": "array",
+                "of": "string"
+              }
+            }
+          }
+        },
+        "locationSettings": {
+          "_type": "intersection",
+          "parts": [
+            {
+              "_type": "required",
+              "fields": {
+                "regionSize": "number",
+                "simpleRadius": "number",
+                "complexRadius": "number",
+                "regionLocationCount": "number",
+                "regionFactionCount": "number",
+                "avgTravelDistance": "number",
+                "minTravelDistance": "number",
+                "newRegionGenerationEnabled": "boolean",
+                "encountersEnabled": "boolean"
+              }
+            },
+            {
+              "_type": "partial",
+              "fields": {
+                "regionMapBorderFeatheringEnabled": "boolean"
+              }
+            }
+          ]
+        },
+        "itemSettings": {
+          "_type": "required",
+          "fields": {
+            "currencyName": "string",
+            "itemCategories": {
+              "_type": "array",
+              "of": "string"
+            },
+            "itemSlots": {
+              "_type": "array",
+              "of": {
+                "_type": "required",
+                "fields": {
+                  "slot": "string",
+                  "category": "string",
+                  "quantity": "number"
+                }
+              }
+            },
+            "startingItems": {
+              "_type": "array",
+              "of": "(recursive)"
+            }
+          }
+        },
+        "combatSettings": {
+          "_type": "required",
+          "fields": {
+            "minCombatXP": "number",
+            "baseCombatXP": "number",
+            "abilityCooldown": "number",
+            "abilityBonus": "number",
+            "npcDailyHealingAmount": "number",
+            "damageTypes": {
+              "_type": "array",
+              "of": "string"
+            }
+          }
+        },
+        "otherSettings": {
+          "_type": "required",
+          "fields": {
+            "startingCharacterLevelUpRequirement": "number",
+            "extraRequiredXPPerCharacterLevel": "number",
+            "maxCharacterLevel": "number",
+            "npcHealthPerLevel": "number",
+            "npcMinHealth": "number"
+          }
+        },
+        "tipSettings": {
+          "_type": "required",
+          "fields": {
+            "tips": {
+              "_type": "array",
+              "of": "string"
+            },
+            "tipDisplayEnabled": "boolean",
+            "tipTurnInterval": "number",
+            "tipMinimumTurns": "number",
+            "tipMaximumTurns": "number"
+          }
+        },
+        "resourceSettings": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "initialValue": "number",
+                  "maxValue": "number",
+                  "rechargeRate": "Int",
+                  "restRechargeMultiplier": "number",
+                  "color": "string",
+                  "gainPerLevel": "number"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "usageInstructions": "string",
+                  "isHealth": "boolean"
+                }
+              }
+            ]
+          }
+        },
+        "death": {
+          "_type": "required",
+          "fields": {
+            "permadeath": "boolean",
+            "instructions": "string"
+          }
+        },
+        "nameFilterSettings": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": {
+            "_type": "required",
+            "fields": {
+              "replacements": {
+                "_type": "array",
+                "of": "string"
+              }
+            }
+          }
+        },
+        "premadeCharacters": {
+          "_type": "array",
+          "of": {
+            "_type": "intersection",
+            "parts": [
+              {
+                "_type": "required",
+                "fields": {
+                  "name": "string",
+                  "gender": "string",
+                  "description": "string"
+                }
+              },
+              {
+                "_type": "partial",
+                "fields": {
+                  "attributes": {
+                    "_type": "record",
+                    "domain": "string",
+                    "codomain": "number"
+                  },
+                  "traits": {
+                    "_type": "array",
+                    "of": "string"
+                  },
+                  "backstory": "string",
+                  "portraitUrl": "string",
+                  "replacesNpc": "string"
+                }
+              }
+            ]
+          }
+        },
+        "authorSeeds": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": "string"
+        },
+        "characterArchetypes": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": "string"
+        },
+        "locationArchetypes": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": "string"
+        },
+        "regionArchetypes": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": "string"
+        },
+        "encounterElements": {
+          "_type": "record",
+          "domain": "string",
+          "codomain": "string"
+        },
+        "randomNames": {
+          "_type": "required",
+          "fields": {
+            "male": {
+              "_type": "array",
+              "of": "string"
+            },
+            "female": {
+              "_type": "array",
+              "of": "string"
+            }
+          }
+        },
+        "embeddingModel": {
+          "_type": "union",
+          "of": [
+            "string",
+            "undefined"
+          ]
+        },
+        "embeddingDimension": {
+          "_type": "union",
+          "of": [
+            "number",
+            "undefined"
+          ]
+        },
+        "mods": {
+          "_type": "union",
+          "of": [
+            {
+              "_type": "array",
+              "of": {
+                "_type": "required",
+                "fields": {
+                  "shortId": "string",
+                  "version": {
+                    "_type": "union",
+                    "of": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "undefined"
+          ]
+        }
+      }
+    },
+    {
+      "_type": "partial",
+      "fields": {
+        "characterCreationMusic": {
+          "_type": "union",
+          "of": [
+            {
+              "_type": "literal",
+              "value": "fantasy"
+            },
+            {
+              "_type": "literal",
+              "value": "nonfantasy"
+            }
+          ]
+        },
+        "imagePromptConfiguration": {
+          "_type": "partial",
+          "fields": {
+            "npcs": "string",
+            "locations": "string",
+            "regions": "string"
+          }
+        }
+      }
+    }
+  ]
+}

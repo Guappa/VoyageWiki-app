@@ -1,0 +1,96 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import NoteBlock from "~/components/static/NoteBlock.astro";
+---
+<BaseLayout title="Voyage Heroes - World Config JSON: Complete Reference">
+  <article class="section-article home-article">
+    <header class="home-hero">
+      <h1 class="home-hero__title">Voyage Heroes - World Config JSON: Complete Reference</h1>
+      <p class="home-hero__meta">
+        <strong>Version</strong>: V33 / heroesVersion 33<br />
+        <strong>Purpose</strong>: Workflow guide and authoritative schema reference for creating and editing V33 scenarios - covers both the raw JSON structure and the corresponding web editor UI for each section
+      </p>
+    </header>
+
+    <NoteBlock>
+      <strong>Community resource, not official documentation.</strong> This wiki is independently maintained by one person (Guappa). Sources include hands-on testing, schema extraction from the Voyage webpack bundle, discussion threads on the <a href="https://discord.com/invite/HB2YBZYjyf" target="_blank" rel="noopener">Voyage Discord</a>, and authoring skills from <a href="https://github.com/nikolaj-lat/World-Puppeteer" target="_blank" rel="noopener">World Puppeteer</a>. Most of what is here has been verified directly, but treat it as a best-effort reference rather than ground truth - especially for fields that change between versions. When in doubt, test it yourself or check with the devs.
+    </NoteBlock>
+
+    <section class="partner-frame">
+      <span class="partner-frame__label">Community tool</span>
+      <p class="partner-frame__lede">If you would rather build worlds visually instead of editing JSON by hand, Voyage Forge is a community-built editor and companion guide for V33.</p>
+
+      <a class="partner-card" href="https://voyageforge.app/" target="_blank" rel="noopener">
+        <span class="partner-card__icon" aria-hidden="true">
+          <img src="/voyage-forge-icon.svg" alt="" width="48" height="48" />
+        </span>
+        <span class="partner-card__body">
+          <span class="partner-card__title">Voyage Forge</span>
+          <span class="partner-card__desc">Interactive V33 world editor. Build scenarios with a visual interface, inline validation, no file editing required.</span>
+        </span>
+        <span class="partner-card__external" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/>
+            <path d="M8 7h9v9"/>
+          </svg>
+        </span>
+      </a>
+
+      <a class="partner-card partner-card--secondary" href="https://guide.voyageforge.app/" target="_blank" rel="noopener">
+        <span class="partner-card__icon partner-card__icon--book" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </span>
+        <span class="partner-card__body">
+          <span class="partner-card__title">Voyage Forge Guide</span>
+          <span class="partner-card__desc">Community-written walkthrough covering V33 world creation step-by-step.</span>
+        </span>
+        <span class="partner-card__external" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/>
+            <path d="M8 7h9v9"/>
+          </svg>
+        </span>
+      </a>
+    </section>
+
+    <section class="home-block">
+      <h2 id="start-here">Start here</h2>
+      <div class="home-grid">
+        <a class="home-card" href="/world">
+          <span class="home-card__label">World</span>
+          <span class="home-card__title">Story, Lore, NPCs, Locations</span>
+          <span class="home-card__body">Build the people and places. Story overview, world lore, NPCs, items, factions, locations, regions, quests.</span>
+        </a>
+        <a class="home-card" href="/mechanics">
+          <span class="home-card__label">Mechanics</span>
+          <span class="home-card__title">Skills, Traits, Abilities</span>
+          <span class="home-card__body">How characters act and grow. Attributes, resources, skills, traits, abilities, triggers, combat settings.</span>
+        </a>
+        <a class="home-card" href="/ai">
+          <span class="home-card__label">AI</span>
+          <span class="home-card__title">Narrator Instructions</span>
+          <span class="home-card__body">All fifteen narrator tasks. Story, Initial Start, NPC Details, NPC Intents, and more.</span>
+        </a>
+        <a class="home-card" href="/appendix">
+          <span class="home-card__label">Appendix</span>
+          <span class="home-card__title">Scripting and Validation</span>
+          <span class="home-card__body">Trigger scripts, worked recipes, validator gotchas, editorial review checklist.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="home-block">
+      <h2 id="for-agents">For AI agents</h2>
+      <p>
+        Every section is exposed as a self-contained API endpoint with the schema
+        fragment, prose explanation, field notes, and authoring tips. World JSON
+        can also be validated via <code>POST /api/validate</code>. See
+        <a href="/tools/api">/tools/api</a> for the full list of endpoints,
+        examples, and an agent prompt snippet.
+      </p>
+    </section>
+  </article>
+</BaseLayout>

@@ -1,0 +1,38 @@
+{
+  "moduleId": "64857",
+  "crossRefs": {
+    "npcs": {
+      "item": "items",
+      "faction": "factions",
+      "currentLocation": "locations",
+      "type": "npcTypes"
+    },
+    "items": {
+      "variable": "resourceSettings"
+    },
+    "quests": {
+      "questLocation": "locations"
+    },
+    "skills": {
+      "item": "items"
+    },
+    "traits": {
+      "abilities": "abilities",
+      "skills": "skills",
+      "resource": "resourceSettings"
+    },
+    "abilities": {
+      "variable": "resourceSettings"
+    },
+    "locations": {
+      "region": "regions"
+    },
+    "storyStarts": {
+      "item": "items",
+      "startingQuests": "quests"
+    },
+    "traitCategories": {
+      "traits": "traits"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+﻿---
+import { LIMIT_GROUPS } from "~/data/size-limits";
+import { renderMetadataValue } from "~/lib/metadata-format";
+---
+{LIMIT_GROUPS.map((group) => (
+  <>
+    <h4 id={group.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}>{group.title}</h4>
+    {group.intro && <p>{group.intro}</p>}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Field / Pattern</th>
+            <th>Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {group.entries.map((entry) => (
+            <tr>
+              <td set:html={renderMetadataValue(entry.field)} />
+              <td set:html={renderMetadataValue(entry.limit)} />
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </>
+))}

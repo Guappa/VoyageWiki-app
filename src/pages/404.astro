@@ -1,0 +1,37 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+---
+<BaseLayout title="Page not found - VoyageWiki" description="The page you were looking for does not exist.">
+  <article class="section-article not-found">
+    <div class="not-found__inner">
+      <span class="not-found__code">404</span>
+      <h1 class="not-found__title">This page does not exist.</h1>
+      <p class="not-found__lede">
+        The URL you tried did not match any page on this wiki. It may have moved, been renamed,
+        or never existed. Try one of the entry points below, or use the search bar in the header.
+      </p>
+      <div class="home-grid">
+        <a class="home-card" href="/">
+          <span class="home-card__label">Home</span>
+          <span class="home-card__title">Wiki overview</span>
+          <span class="home-card__body">Landing page with intro, API endpoints, and entry points.</span>
+        </a>
+        <a class="home-card" href="/world/npcs">
+          <span class="home-card__label">World</span>
+          <span class="home-card__title">NPCs</span>
+          <span class="home-card__body">The most-edited section. Schema, fields, and authoring tips.</span>
+        </a>
+        <a class="home-card" href="/tools/validator">
+          <span class="home-card__label">Tools</span>
+          <span class="home-card__title">Validator</span>
+          <span class="home-card__body">Paste a world JSON to check it against the V33 schema.</span>
+        </a>
+        <a class="home-card" href="/appendix/scripting-patterns">
+          <span class="home-card__label">Appendix</span>
+          <span class="home-card__title">Scripting Patterns</span>
+          <span class="home-card__body">Worked recipes for triggers, scripts, and persistent state.</span>
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

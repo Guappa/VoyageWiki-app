@@ -1,0 +1,149 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import { SCHEMA_FIELDS } from "~/lib/schema-root";
+
+interface SchemaNode {
+  _type?: string;
+  fields?: Record<string, unknown>;
+  domain?: unknown;
+  codomain?: unknown;
+  parts?: unknown[];
+  of?: unknown[];
+  value?: unknown;
+  element?: unknown;
+}
+
+function isObj(value: unknown): value is SchemaNode {
+  return typeof value === "object" && value !== null;
+}
+
+function describeType(node: unknown): string {
+  if (typeof node === "string") return node;
+  if (!isObj(node)) return "unknown";
+  const nodeType = node._type;
+  if (nodeType === "required") return "object";
+  if (nodeType === "partial") return "object?";
+  if (nodeType === "intersection") return "object";
+  if (nodeType === "record") return "record";
+  if (nodeType === "array") return "array";
+  if (nodeType === "union") return "union";
+  if (nodeType === "literal") return "literal";
+  return nodeType ? String(nodeType) : "object";
+}
+
+// `localRequired` = mandatory once its optional container exists, vs `required` which is unconditional from the root.
+interface FieldRow { section: string; path: string; type: string; required: boolean; localRequired: boolean; }
+
+function walk(node: unknown, section: string, prefix: string, required: boolean, localRequired: boolean, out: FieldRow[]): void {
+  if (!isObj(node)) return;
+  const nodeType = node._type;
+  if (nodeType === "required" || nodeType === "partial") {
+    const fields = (node.fields ?? {}) as Record<string, unknown>;
+    const isReq = nodeType === "required";
+    for (const [name, child] of Object.entries(fields)) {
+      const path = prefix ? prefix + "." + name : name;
+      const childRequired = required && isReq;
+      const childLocal = localRequired && isReq;
+      out.push({ section, path, type: describeType(child), required: childRequired, localRequired: childLocal });
+      walk(child, section, path, childRequired, childLocal, out);
+    }
+    return;
+  }
+  if (nodeType === "intersection") {
+    const parts = (node.parts ?? []) as unknown[];
+    for (const part of parts) walk(part, section, prefix, required, localRequired, out);
+    return;
+  }
+  if (nodeType === "record") {
+    // Crossing into a record entry: nothing is unconditionally required, but the entry has its own required fields.
+    walk(node.codomain, section, prefix ? prefix + ".*" : "*", false, true, out);
+    return;
+  }
+  if (nodeType === "array") {
+    walk(node.element, section, prefix ? prefix + "[]" : "[]", false, true, out);
+    return;
+  }
+  if (nodeType === "union") {
+    const branches = (node.of ?? []) as unknown[];
+    for (const branch of branches) walk(branch, section, prefix, required, localRequired, out);
+    return;
+  }
+}
+
+const fieldsMap = SCHEMA_FIELDS;
+const allRows: FieldRow[] = [];
+for (const [sectionKey, sectionSchema] of Object.entries(fieldsMap).sort()) {
+  walk(sectionSchema, sectionKey, "", true, true, allRows);
+}
+const seen = new Set<string>();
+const rows = allRows.filter((r) => {
+  const key = r.section + "|" + r.path;
+  if (seen.has(key)) return false;
+  seen.add(key);
+  return true;
+}).sort((a, b) => a.path.localeCompare(b.path) || a.section.localeCompare(b.section));
+
+const TAB_FOR: Record<string, string> = {
+  npcs: "world", npcTypes: "world", locations: "world", regions: "world", realms: "world",
+  factions: "world", items: "world", quests: "world", storySettings: "world", storyStarts: "world", worldLore: "world",
+  attributeSettings: "mechanics", resourceSettings: "mechanics", skills: "mechanics", traits: "mechanics",
+  traitCategories: "mechanics", abilities: "mechanics", death: "mechanics", itemSettings: "mechanics",
+  triggers: "mechanics", combatSettings: "mechanics", skillSettings: "mechanics",
+  aiInstructions: "ai",
+  narratorStyle: "other", nameFilterSettings: "other", locationSettings: "other", tipSettings: "other",
+  otherSettings: "other", authorSeeds: "other", characterArchetypes: "other", locationArchetypes: "other",
+  regionArchetypes: "other", encounterElements: "other", randomNames: "other"
+};
+---
+<BaseLayout title="Field index - VoyageWiki" description="Alphabetical index of every field in the V33 schema with the section it belongs to.">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="fields">Field index</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">Field index</h1>
+      <p class="guide-header__summary">
+        Every field in the V33 schema, listed alphabetically. Use this when you know the field name
+        but not which section owns it. <code>?</code> after a type means optional; <code>.*</code>
+        is a record key; <code>[]</code> is an array element.
+      </p>
+      <p class="guide-header__summary">
+        <strong>Required</strong> means: <span class="req-pill req-pill--yes"><span class="req-pill__icon" aria-hidden="true">✓</span></span> always: the field exists in every valid world;
+        <span class="req-pill req-pill--entry"><span class="req-pill__icon" aria-hidden="true">◆</span></span> conditionally required: the field is mandatory once its containing entry exists, but the container itself is optional (e.g. a <code>gameModes</code> mode, or any <code>.*</code> record entry);
+        <span class="req-pill req-pill--no"><span class="req-pill__icon" aria-hidden="true">✕</span></span> optional.
+      </p>
+    </header>
+
+    <p>{rows.length} field paths across {Object.keys(fieldsMap).length} top-level sections.</p>
+
+    <div class="table-wrap">
+      <table class="fields-table">
+        <thead>
+          <tr>
+            <th>Path</th>
+            <th>Section</th>
+            <th>Type</th>
+            <th>Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => {
+            const tab = TAB_FOR[r.section];
+            const sectionHref = tab ? "/" + tab + "/" + r.section : null;
+            return (
+              <tr>
+                <td><code>{r.section}.{r.path}</code></td>
+                <td>{sectionHref ? <a href={sectionHref} class="field-tip-link" data-field-tip-id={r.section}><code>{r.section}</code></a> : <code>{r.section}</code>}</td>
+                <td><code>{r.type}</code></td>
+                <td>{r.required
+                  ? <span role="img" class="req-pill req-pill--yes" aria-label="Always required"><span class="req-pill__icon" aria-hidden="true">{"✓"}</span></span>
+                  : r.localRequired
+                  ? <span role="img" class="req-pill req-pill--entry" aria-label="Conditionally required (mandatory once the entry exists)"><span class="req-pill__icon" aria-hidden="true">{"◆"}</span></span>
+                  : <span role="img" class="req-pill req-pill--no" aria-label="Optional"><span class="req-pill__icon" aria-hidden="true">{"✕"}</span></span>}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </article>
+</BaseLayout>

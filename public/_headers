@@ -1,0 +1,17 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Link: </api/index.json>; rel="api-catalog"; type="application/json"
+  Link: </api/wiki.json>; rel="alternate"; type="application/json"; title="VoyageWiki as JSON"
+  Link: </api/wiki.md>; rel="alternate"; type="text/markdown"; title="VoyageWiki as Markdown"
+  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM-friendly site summary"
+
+/api/*
+  Cache-Control: public, max-age=3600, s-maxage=86400
+  Access-Control-Allow-Origin: *
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

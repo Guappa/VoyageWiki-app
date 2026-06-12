@@ -1,0 +1,19 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[] }
+const { headings } = Astro.props;
+const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 5);
+const minDepth = filtered.length > 0 ? Math.min(...filtered.map((h) => h.depth)) : 2;
+---
+{filtered.length >= 2 && (
+  <nav class="page-toc" aria-label="On this page">
+    <p class="page-toc__label">On this page</p>
+    <ul class="page-toc__list">
+      {filtered.map((h) => (
+        <li class={"page-toc__item page-toc__item--depth-" + (h.depth - minDepth)}>
+          <a class="page-toc__link" href={"#" + h.slug} data-toc-slug={h.slug}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

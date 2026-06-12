@@ -1,0 +1,303 @@
+.partner-frame {
+  box-shadow: var(--shadow-card);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--color-bg-subtle), var(--color-bg));
+}
+.partner-frame__label {
+  display: inline-block;
+  font-size: 0.7em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-link);
+  margin-bottom: var(--space-2);
+}
+.partner-frame__lede {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.95em;
+  line-height: 1.55;
+}
+
+.partner-card {
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 8px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.partner-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-link);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.partner-card:last-child { margin-bottom: 0; }
+
+.partner-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.partner-card__icon svg { width: 40px; height: 40px; display: block; }
+.partner-card__icon--book {
+  color: var(--color-link);
+}
+.partner-card__icon--book svg { width: 24px; height: 24px; }
+
+.partner-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.partner-card__title {
+  font-weight: 700;
+  color: var(--color-text-heading);
+  font-size: 1.02em;
+}
+.partner-card__desc {
+  font-size: 0.9em;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+.partner-card__external {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+}
+.partner-card:hover .partner-card__external { color: var(--color-link); }
+
+.partner-card--secondary { background: var(--color-bg-subtle); }
+.partner-card--secondary .partner-card__icon { background: var(--color-bg); }
+
+
+.site-footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+}
+.site-footer__build { color: var(--color-text-muted); font-size: 0.85em; justify-self: start; }
+.site-footer__center { color: var(--color-text-muted); font-size: 0.85em; justify-self: center; text-align: center; }
+.site-footer__center a { text-decoration: underline; text-underline-offset: 2px; }
+.site-footer .play-voyage { justify-self: end; }
+@media (max-width: 720px) {
+  .site-footer { grid-template-columns: 1fr; justify-items: center; gap: var(--space-2); }
+  .site-footer__build, .site-footer__center, .site-footer .play-voyage { justify-self: center; }
+}
+.play-voyage {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.play-voyage:hover {
+  text-decoration: none;
+  border-color: var(--color-link);
+  transform: translateY(-1px);
+}
+.play-voyage__body { display: flex; flex-direction: column; line-height: 1; }
+.play-voyage__label {
+  font-size: 0.62em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+.play-voyage__wordmark {
+  height: 16px;
+  width: auto;
+  display: block;
+  color: var(--color-text-heading);
+}
+.play-voyage__arrow { color: var(--color-text-muted); }
+.play-voyage:hover .play-voyage__arrow { color: var(--color-link); }
+
+
+.not-found { text-align: left; max-width: 980px; }
+.not-found__inner { padding: var(--space-6) 0; }
+.not-found__code {
+  display: block;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--color-link);
+  margin-bottom: var(--space-3);
+}
+.not-found__title {
+  margin: 0 0 var(--space-3);
+  font-size: 1.8rem;
+  border: none;
+  padding: 0;
+}
+.not-found__lede {
+  margin: 0 0 var(--space-5);
+  color: var(--color-text-muted);
+  font-size: 1.05em;
+  max-width: 72ch;
+}
+
+/* Sidebar headings that act as tab-landing links */
+.sidebar-nav__heading--link {
+  display: block;
+  text-decoration: none;
+  color: var(--color-text-muted);
+}
+.sidebar-nav__heading--link:hover {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+/* Thin scrollbar for the sidebar */
+.doc-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.doc-sidebar::-webkit-scrollbar { width: 8px; }
+.doc-sidebar::-webkit-scrollbar-track { background: transparent; }
+.doc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: 999px;
+}
+.doc-sidebar::-webkit-scrollbar-thumb:hover { background: var(--color-border); }
+
+
+html, body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--header-height-mobile, 56px);
+    padding: 8px var(--space-3);
+    row-gap: 8px;
+  }
+  .site-header__tools {
+    gap: 4px;
+  }
+  /* Font size controls take ~200px on mobile; hide them. Users can use browser zoom instead. */
+  .site-header .font-size-control { display: none; }
+  .search {
+    flex: 1 1 100%;
+    order: 99;
+    min-width: 0;
+  }
+  .search__shortcut { display: none; }
+  .search__input { padding-right: 32px; }
+
+  .doc-main {
+    padding: var(--space-4) var(--space-3);
+  }
+  .section-hero {
+    padding: var(--space-4);
+  }
+  .section-hero__facts {
+    grid-template-columns: 1fr !important;
+  }
+  .section-hero__updated {
+    position: static;
+    margin-bottom: var(--space-3);
+    align-items: flex-start;
+    text-align: left;
+  }
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-hero__title::after,
+  .guide-header__title::after,
+  .home-hero__title::after {
+    width: 100px;
+  }
+}
+
+/* ---- Field tooltip popover (top-level schema field auto-links) -------- */
+
+/* Field-tip auto-links keep code-chip colour with a dotted underline (author links use solid); hover is neutralised so neither colour nor underline shifts. */
+.field-tip-link,
+.field-tip-link:hover,
+.field-tip-link:focus-visible {
+  color: inherit;
+  text-decoration: none;
+  cursor: help;
+}
+.field-tip-link > code {
+  /* Dotted underline on the <code>, not the anchor, so it spans the text not the chip padding; link colour signals it is a link. */
+  text-decoration: underline dotted;
+  text-decoration-color: var(--color-link, currentColor);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 1px;
+}
+
+.field-tip-popover {
+  position: absolute;
+  z-index: 200;
+  max-width: 360px;
+  min-width: 200px;
+  background: var(--color-bg-subtle, #252525);
+  border: 1px solid var(--color-border, #3d3d3d);
+  border-radius: 6px;
+  padding: 10px 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease;
+  pointer-events: none;
+}
+.field-tip-popover.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.field-tip-popover__title {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-text-heading, #ffffff);
+  margin-bottom: 6px;
+}
+.field-tip-popover__summary {
+  color: var(--color-text, #e8e8e8);
+}
+.field-tip-popover__hint {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--color-border, rgba(255,255,255,0.1));
+  font-size: 0.78rem;
+  color: var(--color-text-muted, #b1b8c0);
+}

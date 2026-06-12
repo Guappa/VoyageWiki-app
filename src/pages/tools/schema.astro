@@ -1,0 +1,87 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import hljs from "highlight.js/lib/core";
+import hljsJson from "highlight.js/lib/languages/json";
+hljs.registerLanguage("json", hljsJson);
+import { SCHEMA_FIELDS } from "~/lib/schema-root";
+
+interface SchemaNode {
+  _type?: string;
+  fields?: Record<string, unknown>;
+  domain?: unknown;
+  codomain?: unknown;
+  parts?: unknown[];
+  of?: unknown[];
+  value?: unknown;
+  element?: unknown;
+}
+
+function isObj(value: unknown): value is SchemaNode {
+  return typeof value === "object" && value !== null;
+}
+
+function summarize(node: unknown): string {
+  if (typeof node === "string") return node;
+  if (!isObj(node)) return "unknown";
+  const nodeType = node._type;
+  if (nodeType === "required") return "object (required keys)";
+  if (nodeType === "partial") return "object (optional keys)";
+  if (nodeType === "intersection") return "object (required + optional)";
+  if (nodeType === "record") return "record<string, ...>";
+  if (nodeType === "array") return "array";
+  if (nodeType === "union") return "union";
+  if (nodeType === "literal") return "literal: " + JSON.stringify(node.value);
+  if (nodeType) return String(nodeType);
+  return "object";
+}
+
+const fieldsMap = SCHEMA_FIELDS;
+// Preserve the schema's declaration order (configVersion -> heroesVersion -> aiInstructions -> ...).
+const sortedKeys = Object.keys(fieldsMap);
+
+const entries = await Promise.all(sortedKeys.map(async (key) => {
+  const node = fieldsMap[key];
+  const json = JSON.stringify(node, null, 2);
+  const html = `<pre class="astro-code"><code class="hljs language-json">${hljs.highlight(json, { language: "json" }).value}</code></pre>`;
+  return { key, shape: summarize(node), html };
+}));
+---
+<BaseLayout title="Schema Explorer - VoyageWiki" description="Browse the live V33 schema by section">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="schema">Schema Explorer</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">Schema Explorer</h1>
+      <p class="guide-header__summary">
+        Browse the live V33 schema by top-level section. Each card shows the schema shape for one
+        section straight from the io-ts codec. Use this when you need to verify a field name, type,
+        or whether a value is required.
+      </p>
+    </header>
+
+    <p>
+      Raw JSON: <a href="/api/schema.json" target="_blank" rel="noopener"><code>/api/schema.json</code></a>
+      (about 52 KB, the entire codec).
+    </p>
+
+    <div class="schema-grid">
+      {entries.map((e) => (
+        <details class="schema-card">
+          <summary>
+            <code class="schema-card__key">{e.key}</code>
+            <span class="schema-card__shape">{e.shape}</span>
+          </summary>
+          <div class="schema-card__body">
+            <div class="code-block" data-language="json">
+              <div class="code-block__toolbar">
+                <span class="code-block__lang">json</span>
+                <button type="button" class="code-block__copy" data-copy-button="true" aria-label="Copy code to clipboard">Copy</button>
+              </div>
+              <Fragment set:html={e.html} />
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+  </article>
+</BaseLayout>

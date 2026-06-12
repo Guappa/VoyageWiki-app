@@ -1,0 +1,80 @@
+﻿---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import SectionHero from "~/components/static/SectionHero.astro";
+import SchemaBlock from "~/components/static/SchemaBlock.astro";
+import PageToc from "~/components/static/PageTOC.astro";
+import lastUpdated from "~/data/generated/last-updated.json";
+import { sectionShapeJson } from "~/lib/schema-shape";
+
+interface Heading { depth: number; slug: string; text: string }
+
+interface Props {
+  tab: string;
+  tabTitle: string;
+  section: string;
+  title: string;
+  kind: "schema" | "guide";
+  summary: string;
+  uiLocation?: string;
+  uiSubtitle?: string;
+  editor?: string;
+  related?: string;
+  headings?: Heading[];
+}
+
+const { tab, tabTitle, section, title, kind, summary, uiLocation, uiSubtitle, editor, related, headings = [] } = Astro.props;
+const isGuide = kind === "guide";
+const hasAutoSchema = !isGuide && sectionShapeJson(section) !== null;
+const tocHeadings: Heading[] = hasAutoSchema
+  ? [{ depth: 2, slug: "schema", text: "Schema" }, ...headings]
+  : headings;
+
+// The auto-injected Schema heading doesn't count toward the rail's 2-heading threshold.
+const bodyTocCount = headings.filter((h) => h.depth >= 2 && h.depth <= 5).length;
+const showRail = bodyTocCount >= 2;
+
+function formatDate(iso: string | undefined): string {
+  if (!iso) return "";
+  const date = new Date(iso);
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+}
+interface LastUpdated { wikiUpdatedAt?: string; perPage?: Record<string, string>; }
+const lastUpdatedData = lastUpdated as LastUpdated;
+const pageKey = tab + "/" + section;
+const updatedAt = (lastUpdatedData.perPage && lastUpdatedData.perPage[pageKey]) || lastUpdatedData.wikiUpdatedAt;
+const updatedLabel = formatDate(updatedAt);
+const updatedIso = updatedAt;
+---
+<BaseLayout title={title + " - VoyageWiki"} description={summary} withRail={showRail}>
+  <article class="section-article" transition:animate="slide" data-pagefind-body data-pagefind-meta={"title:" + title}>
+    <SectionBreadcrumb tab={tab} tabTitle={tabTitle} section={section}>{title}</SectionBreadcrumb>
+    {isGuide ? (
+      <header class="guide-header">
+        <h1 class="guide-header__title">{title}</h1>
+        <p class="guide-header__summary">{summary}</p>
+        {updatedLabel && (
+          <p class="page-updated">Last updated: <time datetime={updatedIso}>{updatedLabel}</time></p>
+        )}
+      </header>
+    ) : (
+      <SectionHero
+        tab={tab}
+        tabTitle={tabTitle}
+        section={section}
+        title={title}
+        summary={summary}
+        uiLocation={uiLocation}
+        uiSubtitle={uiSubtitle}
+        editor={editor}
+        related={related}
+        updatedIso={updatedIso}
+        updatedLabel={updatedLabel}
+      />
+    )}
+
+    {hasAutoSchema && <SchemaBlock section={section} />}
+    <slot name="overview" />
+  </article>
+  {showRail && <PageToc headings={tocHeadings} slot="rail" />}
+</BaseLayout>

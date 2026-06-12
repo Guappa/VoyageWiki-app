@@ -1,0 +1,13 @@
+﻿---
+interface Props {
+  tab: string;
+  tabTitle: string;
+  section: string;
+}
+const { tab, tabTitle } = Astro.props;
+---
+<nav class="section-breadcrumb" aria-label="Section location">
+  <a class="section-breadcrumb__link" href={"/" + tab}>{tabTitle}</a>
+  <span class="section-breadcrumb__sep" aria-hidden="true">›</span>
+  <span class="section-breadcrumb__current"><slot /></span>
+</nav>

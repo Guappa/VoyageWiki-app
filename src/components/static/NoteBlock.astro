@@ -1,0 +1,13 @@
+---
+interface Props { type?: "info" | "warning" | "success"; icon?: string }
+
+const ICONS: Record<string, string> = { info: "ℹ️", warning: "⚠️", success: "✅" };
+const { type = "info", icon } = Astro.props;
+const glyph = icon ?? ICONS[type] ?? ICONS.info;
+---
+<aside class={`note-block note-block--${type}`}>
+  <div class="note-block__icon" aria-hidden="true">{glyph}</div>
+  <div class="note-block__body">
+    <slot />
+  </div>
+</aside>

@@ -1,0 +1,28 @@
+﻿---
+import { LIMIT_GROUPS } from "~/data/size-limits";
+import { renderMetadataValue } from "~/lib/metadata-format";
+
+interface Props { groupTitle: string; }
+const { groupTitle } = Astro.props;
+const group = LIMIT_GROUPS.find((g) => g.title === groupTitle);
+if (!group) throw new Error("SizeLimitsTable: no group titled '" + groupTitle + "' in size-limits.ts");
+---
+{group.intro && <p>{group.intro}</p>}
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Field / Pattern</th>
+        <th>Limit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {group.entries.map((entry) => (
+        <tr>
+          <td set:html={renderMetadataValue(entry.field)} />
+          <td set:html={renderMetadataValue(entry.limit)} />
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

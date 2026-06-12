@@ -1,0 +1,49 @@
+﻿---
+import { renderMetadataValue, parseRelated } from "~/lib/metadata-format";
+
+interface Props {
+  uiLocation?: string;
+  uiSubtitle?: string;
+  editor?: string;
+  related?: string;
+}
+const { uiLocation, uiSubtitle, editor, related } = Astro.props;
+const hasAny = uiLocation || uiSubtitle || editor || related;
+const relatedItems = related ? parseRelated(related) : [];
+---
+{hasAny && (
+  <aside class="section-meta" aria-label="Section metadata">
+    {uiLocation && (
+      <div class="section-meta__row">
+        <span class="section-meta__label">Editor location</span>
+        <span class="section-meta__value" set:html={renderMetadataValue(uiLocation)} />
+      </div>
+    )}
+    {uiSubtitle && (
+      <div class="section-meta__row">
+        <span class="section-meta__label">UI subtitle</span>
+        <span class="section-meta__value" set:html={renderMetadataValue(uiSubtitle)} />
+      </div>
+    )}
+    {editor && (
+      <div class="section-meta__row">
+        <span class="section-meta__label">Editor</span>
+        <span class="section-meta__value" set:html={renderMetadataValue(editor)} />
+      </div>
+    )}
+
+    {relatedItems.length > 0 && (
+      <div class="section-meta__row section-meta__row--related">
+        <span class="section-meta__label">Related</span>
+        <ul class="section-meta__related">
+          {relatedItems.map((item) => (
+            <li>
+              <a class="section-meta__chip" href={item.href}>{item.label}</a>
+              {item.description && <span class="section-meta__chip-note">{item.description}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </aside>
+)}

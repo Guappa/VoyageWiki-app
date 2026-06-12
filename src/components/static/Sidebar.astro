@@ -1,0 +1,108 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import { TAB_ORDER, TOOLS_GROUP } from "~/data/nav-tabs";
+
+const currentPath = (Astro.url.pathname.replace(/\/$/, "")) || "/";
+
+interface NavLink { label: string; href: string; advanced?: boolean; }
+interface NavGroup { heading: string; href?: string; collapsible?: boolean; links: NavLink[]; }
+type Section = CollectionEntry<"sections">;
+
+const allSections = await getCollection("sections");
+
+const byTab = new Map<string, Section[]>();
+for (const s of allSections) {
+  (byTab.get(s.data.tab) ?? byTab.set(s.data.tab, []).get(s.data.tab)!).push(s);
+}
+for (const group of byTab.values()) {
+  group.sort((a: Section, b: Section) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title));
+}
+
+const groups: NavGroup[] = [
+  ...TAB_ORDER.map(cfg => ({
+    heading: cfg.heading,
+    href: cfg.href,
+    collapsible: cfg.collapsible,
+    links: [
+      ...(cfg.staticLinks ?? []),
+      ...(byTab.get(cfg.tab) ?? []).map((s: Section) => ({
+        label: s.data.title,
+        href: `/${s.data.tab}/${s.data.section}`,
+        advanced: s.data.advanced,
+      })),
+    ],
+  })).filter(g => g.links.length > 0),
+  { heading: TOOLS_GROUP.heading, href: TOOLS_GROUP.href, collapsible: TOOLS_GROUP.collapsible, links: TOOLS_GROUP.staticLinks ?? [] },
+];
+
+const groupIsActive = (group: NavGroup) =>
+  (group.href ? currentPath === group.href : false) || group.links.some(l => l.href === currentPath);
+
+const advancedIsActive = (group: NavGroup) =>
+  group.links.some(l => l.advanced && l.href === currentPath);
+---
+<aside id="main-sidebar" class="doc-sidebar" aria-label="Navigation" data-sidebar>
+  <nav>
+    {groups.map((group) => {
+      const isOpen = !group.collapsible || groupIsActive(group);
+      const isHeadingActive = !!group.href && currentPath === group.href;
+      const mainLinks = group.links.filter(l => !l.advanced);
+      const advancedLinks = group.links.filter(l => l.advanced);
+      const advOpen = advancedIsActive(group);
+
+      const listContent = (
+        <ul class="sidebar-nav__list">
+          {mainLinks.map((link) => {
+            const isActive = currentPath === link.href;
+            return (
+              <li class={"sidebar-nav__item" + (isActive ? " sidebar-nav__item--active" : "")}>
+                <a class={"sidebar-nav__link" + (isActive ? " is-active" : "")} href={link.href}>{link.label}</a>
+              </li>
+            );
+          })}
+          {advancedLinks.length > 0 && (
+            <li class="sidebar-nav__item">
+              <details class="sidebar-nav__advanced" open={advOpen || undefined}>
+                <summary class="sidebar-nav__advanced-summary">
+                  <span class="sidebar-nav__advanced-arrow">&#9654;</span>
+                  Advanced
+                </summary>
+                <ul class="sidebar-nav__list">
+                  {advancedLinks.map((link) => {
+                    const isActive = currentPath === link.href;
+                    return (
+                      <li class={"sidebar-nav__item" + (isActive ? " sidebar-nav__item--active" : "")}>
+                        <a class={"sidebar-nav__link" + (isActive ? " is-active" : "")} href={link.href}>{link.label}</a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+            </li>
+          )}
+        </ul>
+      );
+
+      if (!group.collapsible) {
+        return (
+          <div class="sidebar-nav__group">
+            {group.href
+              ? <a class="sidebar-nav__heading sidebar-nav__heading--link" href={group.href}>{group.heading}</a>
+              : <p class="sidebar-nav__heading">{group.heading}</p>}
+            {listContent}
+          </div>
+        );
+      }
+
+      return (
+        <details class="sidebar-nav__group sidebar-nav__group--collapsible" open={isOpen || undefined}>
+          <summary class="sidebar-nav__heading sidebar-nav__heading--summary" aria-label={"Toggle " + group.heading + " section"}>
+            <span class="sidebar-nav__group-arrow">&#9654;</span>
+            <span class={"sidebar-nav__heading-label" + (isHeadingActive ? " is-active" : "")}>{group.heading}</span>
+          </summary>
+          {listContent}
+        </details>
+      );
+    })}
+  </nav>
+</aside>

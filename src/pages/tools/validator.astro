@@ -1,0 +1,27 @@
+﻿---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import Validator from "~/components/islands/Validator.svelte";
+import PageUpdated from "~/components/static/PageUpdated.astro";
+import NoteBlock from "~/components/static/NoteBlock.astro";
+---
+<BaseLayout title="Validator - VoyageWiki" description="Full V33 validator running in your browser, also available as an /api/validate HTTP endpoint">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="validator">Validator</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">Validator</h1>
+      <p class="guide-header__summary">
+        Paste a world JSON below. Runs the full V33 validator in your browser - codec shape,
+        cross-references, enum validity, key/name consistency, size limits, field warnings, and
+        best-practice recommendations. The same engine also backs the <a href="/tools/api"><code>/api/validate</code></a> endpoint for agents and pipelines.
+      </p>
+      <PageUpdated pageKey="tools/validator" />
+    </header>
+
+    <Validator client:load />
+
+    <NoteBlock>
+      <p><strong>For AI agents:</strong> this validator is also exposed as a public HTTP endpoint at <a href="/tools/api"><code>/api/validate</code></a>. POST a world JSON and get the same errors, warnings, and recommendations back as structured JSON &mdash; no copy-paste loop. See the <a href="/tools/api">API docs</a> for request shape, examples, and an agent-prompt snippet.</p>
+    </NoteBlock>
+  </article>
+</BaseLayout>

@@ -1,0 +1,41 @@
+﻿---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import SectionLayout from "~/layouts/SectionLayout.astro";
+
+const TAB_TITLES: Record<string, string> = {
+  world: "World",
+  mechanics: "Mechanics",
+  ai: "AI",
+  other: "Other",
+  appendix: "Appendix",
+mods: "Mods"
+};
+
+export async function getStaticPaths() {
+  const sections = await getCollection("sections");
+  return sections.map((entry: CollectionEntry<"sections">) => ({
+    params: { tab: entry.data.tab, slug: entry.data.section },
+    props: { entry }
+  }));
+}
+
+interface Props { entry: CollectionEntry<"sections"> }
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const tabTitle = TAB_TITLES[entry.data.tab] ?? entry.data.tab;
+---
+<SectionLayout
+  tab={entry.data.tab}
+  tabTitle={tabTitle}
+  section={entry.data.section}
+  title={entry.data.title}
+  kind={entry.data.kind}
+  summary={entry.data.summary}
+  uiLocation={entry.data.uiLocation}
+  uiSubtitle={entry.data.uiSubtitle}
+  editor={entry.data.editor}
+  related={entry.data.related}
+  headings={headings}
+>
+  <Content slot="overview" />
+</SectionLayout>

@@ -1,0 +1,43 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+---
+<BaseLayout title="Tools - VoyageWiki" description="Interactive tools: validator and schema explorer">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="index">Tools</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">Tools</h1>
+      <p class="guide-header__summary">
+        Interactive utilities for working with V33 world JSON. Run inside the browser; no upload, no account.
+      </p>
+    </header>
+
+    <div class="home-grid">
+      <a class="home-card" href="/tools/validator">
+        <span class="home-card__label">Interactive</span>
+        <span class="home-card__title">Validator</span>
+        <span class="home-card__body">Paste a world JSON. Runs the full V33 validator against the live schema and reports missing required fields, type mismatches, and union failures. Also available headless via the /api/validate endpoint.</span>
+      </a>
+      <a class="home-card" href="/tools/trigger-map">
+        <span class="home-card__label">Interactive</span>
+        <span class="home-card__title">Trigger Map</span>
+        <span class="home-card__body">Upload a world to see its triggers as a graph wired to the quests, NPCs, locations, factions, and storage keys they touch, then edit conditions, effects, names, and scripts visually and download the result.</span>
+      </a>
+      <a class="home-card" href="/tools/schema">
+        <span class="home-card__label">Reference</span>
+        <span class="home-card__title">Schema Explorer</span>
+        <span class="home-card__body">Browse the live V33 schema by top-level section. Each card shows the io-ts codec definition straight from the source.</span>
+      </a>
+      <a class="home-card" href="/tools/fields">
+        <span class="home-card__label">Reference</span>
+        <span class="home-card__title">Field index</span>
+        <span class="home-card__body">Every field path in the V33 schema, alphabetical, with the section it belongs to. Useful when you know the field name but not the section.</span>
+      </a>
+      <a class="home-card" href="/tools/api">
+        <span class="home-card__label">For agents</span>
+        <span class="home-card__title">API</span>
+        <span class="home-card__body">Public HTTP endpoints: validate world JSON, fetch section docs and schema fragments, pull the full wiki as JSON or Markdown. Designed for AI agents authoring Voyage worlds.</span>
+      </a>
+    </div>
+  </article>
+</BaseLayout>

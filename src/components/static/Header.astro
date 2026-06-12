@@ -1,0 +1,38 @@
+---
+import ThemeToggle from "~/components/islands/ThemeToggle.svelte";
+import FontSizeControl from "~/components/islands/FontSizeControl.svelte";
+import Search from "~/components/islands/Search.svelte";
+import VoyageWordmark from "~/components/static/VoyageWordmark.astro";
+---
+<header class="site-header">
+  <button
+    type="button"
+    class="site-header__menu"
+    aria-label="Open navigation"
+    aria-controls="main-sidebar"
+    aria-expanded="false"
+    data-sidebar-toggle
+  >
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <a class="site-header__brand" href="/">
+    <span class="brand-voyage">
+      <VoyageWordmark class="brand-voyage__wordmark" ariaLabel="Voyage" />
+    </span>
+    <span class="brand-wiki-group">
+      <span class="brand-unofficial">Unofficial</span>
+      <span class="brand-wiki">WIKI</span>
+    </span>
+  </a>
+  <Search client:load />
+  <div id="tm-header-slot" class="tm-header-slot"></div>
+  <div class="site-header__tools">
+    <FontSizeControl client:load />
+    <ThemeToggle client:load />
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+</header>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import TriggerMap from "~/components/islands/TriggerMap.svelte";
+import PageUpdated from "~/components/static/PageUpdated.astro";
+---
+<BaseLayout title="Trigger Map - VoyageWiki" description="Interactive graph of trigger conditions and effects in a V33 world">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="trigger-map">Trigger Map</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">Trigger Map</h1>
+      <p class="guide-header__summary">
+        Upload a world's JSON to see its triggers as an interactive graph wired to the quests, NPCs, locations, factions, and storage keys they touch. Click any trigger to edit its conditions, effects, and script visually, then download the updated world. Everything runs in your browser; nothing is uploaded. New to how triggers work? Read the <a href="/mechanics/triggers">Triggers reference</a>.
+      </p>
+      <PageUpdated pageKey="tools/trigger-map" />
+    </header>
+
+    <TriggerMap client:only="svelte" />
+  </article>
+</BaseLayout>

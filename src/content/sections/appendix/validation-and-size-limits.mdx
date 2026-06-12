@@ -1,0 +1,31 @@
+﻿---
+tab: "appendix"
+section: "validation-and-size-limits"
+title: "Validation & Size Limits"
+kind: "guide"
+summary: "How the io-ts codec validates JSON, the hard size caps the editor enforces, and what the local validator script checks beyond the codec."
+order: 60
+advanced: false
+---
+import SizeLimitsTables from "~/components/static/SizeLimitsTables.astro";
+
+## Schema Validation Engine
+
+The editor validates the JSON using **io-ts** (not Zod). This has two important consequences:
+
+**Non-strict validation - extra fields are permitted by the codec.** The schema uses `InterfaceType`, which validates that required fields are present and correctly typed but does not strip or reject additional properties. Extra fields are not stripped — they remain in the stored JSON. The [Validator Script](/tools/validator) flags them as warnings so you know they fall outside the formal schema. Information that doesn't have a dedicated field belongs in the section's narrative slot — `basicInfo`, `hiddenInfo`, `description`, or the equivalent — where retrieval is reliable and consistent.
+
+**Error path notation.** Validator error paths like `narratorStyle.0` or `regions.Name.0.fieldName` use `.0`/`.1` as **union branch indices**, not array indices. When a field is defined as `string | undefined`, `.0` means "the string branch failed" and `.1` means "the undefined branch also failed" - which together mean the value was neither a string nor absent. A path like `locations.key.0.basicInfo` means the field `basicInfo` failed validation in the required-fields branch (index 0) of the location intersection type.
+
+---
+
+## Size Limits
+
+Hard caps enforced by the Voyage editor's validation. Exceeding these causes the wand validator to reject the document. Every figure below is generated from a single source of truth: `wiki-app/src/data/size-limits.json`, whose enforced values are synced from the live Voyage schema by `npm run sync:limits`. The grouped tables and the per-section "Size limits" rows in each section hero are rendered from that same data, so adding or changing a limit needs no edit here.
+
+<SizeLimitsTables />
+
+> **📋 Note (How limits are measured):**
+> - **Raw character length** (`value.length` in JS, `len(value)` in Python) -- used for every individual string field: `description`, `basicInfo`, `hiddenInfo`, `narratorStyle`, `death.instructions`, `aiInstructions` leaf strings, `storySettings.worldBackground`, `storySettings.questGenerationGuidance`, trigger condition/effect `text` and `value` fields, and similar. Counts every codepoint as 1 -- newlines count as 1 char, em dashes count as 1 char. This is what the Voyage editor's character counter reports and what the engine enforces.
+> - **Pretty-printed JSON** (`json.dumps(obj, indent=2)`) -- used for all section totals ([`items`](/world/items), [`factions`](/world/factions), `regions`, [`npcs`](/world/npcs), `npcTypes`, `locations`, [`worldLore`](/world/worldLore), [`traitCategories`](/mechanics/traitCategories), [`itemSettings`](/mechanics/itemSettings)) and for [`storyStarts`](/world/storyStarts) per-entry. The structure is serialized with 2-space indentation, and that indentation counts toward the limit -- every nesting level adds 2 spaces per line against your budget, so deeply nested entries cost more than their text alone.
+> - **Compact JSON** (`json.dumps(obj)`) -- used for individual NPC entries and individual trigger entries.

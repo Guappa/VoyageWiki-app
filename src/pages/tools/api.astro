@@ -1,0 +1,207 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import SectionBreadcrumb from "~/components/static/SectionBreadcrumb.astro";
+import CodeBlock from "~/components/static/CodeBlock.astro";
+import PageUpdated from "~/components/static/PageUpdated.astro";
+import NoteBlock from "~/components/static/NoteBlock.astro";
+---
+<BaseLayout title="API - VoyageWiki" description="Public HTTP endpoints for the VoyageWiki: validate world JSON, fetch section docs and schema fragments, and pull the full wiki as JSON or Markdown. CORS-open, free to use, designed for AI agents.">
+  <article class="section-article">
+    <SectionBreadcrumb tab="tools" tabTitle="Tools" section="api">API</SectionBreadcrumb>
+    <header class="guide-header">
+      <h1 class="guide-header__title">API</h1>
+      <p class="guide-header__summary">
+        Public HTTP endpoints for the wiki. Validate world JSON against the live V33 schema, fetch section docs and schema fragments, or pull the full wiki as JSON or Markdown. Designed for AI agents authoring Voyage worlds, but you can hit them from any script or terminal too.
+      </p>
+      <PageUpdated pageKey="tools/api" />
+    </header>
+
+    <NoteBlock>
+      <p><strong>Heads up:</strong> these endpoints are CORS-open, unauthenticated, and free to use. If you build automation on top of them, please be a good neighbour &mdash; cache aggressively for the GET endpoints (they only change when the wiki redeploys) and avoid runaway loops on <code>/api/validate</code>.</p>
+    </NoteBlock>
+
+    <h2 id="overview">Overview</h2>
+    <p>All endpoints share the same base URL and conventions:</p>
+    <ul>
+      <li><strong>Base URL:</strong> <code>https://voyagewiki.pages.dev</code></li>
+      <li><strong>CORS:</strong> open to all origins &mdash; safe to call from any web page, terminal, or agent runtime.</li>
+      <li><strong>Auth:</strong> none. The wiki is a public reference.</li>
+      <li><strong>Rate limits:</strong> the endpoint is rate-limited to protect the shared free-tier budget. If you exceed the limit you'll get <code>HTTP 429</code> with a <code>Retry-After</code> header indicating how long to wait. Slow your loop down and retry &mdash; legitimate validate-fix-revalidate workflows won't bump into it.</li>
+      <li><strong>Versioning:</strong> every endpoint serves the currently deployed wiki. The validator endpoint returns its <code>validatorVersion</code> in the response body.</li>
+    </ul>
+
+    <h2 id="quick-reference">Quick reference</h2>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Endpoint</th><th>Method</th><th>Purpose</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="#validate"><code>/api/validate</code></a></td><td>POST</td><td>Validate a world JSON. Returns errors, warnings, and recommendations.</td></tr>
+        <tr><td><a href="#index"><code>/api/index.json</code></a></td><td>GET</td><td>Manifest of every API endpoint.</td></tr>
+        <tr><td><a href="#sections-index"><code>/api/sections.json</code></a></td><td>GET</td><td>Lightweight index of every documented section.</td></tr>
+        <tr><td><a href="#section"><code>/api/sections/&lt;section&gt;.json</code></a></td><td>GET</td><td>One section &mdash; prose, field notes, schema fragment.</td></tr>
+        <tr><td><a href="#section"><code>/api/sections/&lt;section&gt;.md</code></a></td><td>GET</td><td>Same as above, formatted as Markdown.</td></tr>
+        <tr><td><a href="#wiki"><code>/api/wiki.json</code></a></td><td>GET</td><td>Entire wiki, all sections in one payload (JSON).</td></tr>
+        <tr><td><a href="#wiki"><code>/api/wiki.md</code></a></td><td>GET</td><td>Entire wiki concatenated as Markdown.</td></tr>
+        <tr><td><a href="#schema"><code>/api/schema.json</code></a></td><td>GET</td><td>Raw V33 codec schema.</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="validate">POST /api/validate</h2>
+    <p>
+      Validates a world JSON against the live V33 schema plus every semantic check the in-browser <a href="/tools/validator">Validator</a> performs &mdash; cross-references, enum validity, size limits, runtime-affecting authoring patterns. Output is byte-for-byte identical to the in-browser tool.
+    </p>
+
+    <h3 id="validate-request">Request</h3>
+    <ul>
+      <li><code>Content-Type: application/json</code></li>
+      <li>Body: the world JSON object (same JSON you would paste into the Voyage editor).</li>
+      <li>Max body size: <strong>10 MB</strong>. Realistic worlds top out around 4&ndash;5 MB; the cap is twice that for headroom and to reject abuse payloads.</li>
+      <li>Rate-limited. Exceeding the threshold returns <code>HTTP 429</code> with a <code>Retry-After</code> header (seconds until you can retry). Generous for validate-fix-revalidate loops &mdash; if you hit it, slow the loop down.</li>
+    </ul>
+
+    <h3 id="validate-response">Response</h3>
+    <p>JSON object with:</p>
+    <ul>
+      <li><code>counts</code> &mdash; <code>&#123; errors, warnings, recommendations &#125;</code> totals.</li>
+      <li><code>errors</code> &mdash; array of <code>&#123; path, title, fix, detail?, value?, message &#125;</code>. <strong>Will</strong> break at runtime &mdash; broken references, invalid enums, codec shape violations, hard schema misconfigurations. The Voyage editor still publishes worlds with these intact; the engine then silently drops fields, breaks lookups, or throws when the affected code path runs.</li>
+      <li><code>warnings</code> &mdash; array of <code>&#123; path, title, fix, detail?, value?, message &#125;</code>. <strong>Might</strong> break at runtime &mdash; data that the engine may tolerate today but where behaviour is degraded, fragile, or silently wrong (broken area paths, invalid item slots, quest fields whose absence may prevent completion).</li>
+      <li><code>recommendations</code> &mdash; array of <code>&#123; path, title, fix, detail?, value?, message &#125;</code>. <strong>Might</strong> improve quality &mdash; missing optional context the AI would benefit from (empty <code>hiddenInfo</code>, sparse <code>personality</code>, undocumented fields). Safe to ignore by design.</li>
+      <li><code>validatorVersion</code> &mdash; ISO-8601 timestamp of the currently deployed validator.</li>
+    </ul>
+    <p>Issues in each array are sorted by <code>path</code> for stable diffs. <code>title</code> states the problem and <code>fix</code> the action; <code>value</code> holds the offending token when relevant; <code>message</code> is the two composed into one string for display. Backtick-wrapped field names and values stay in the text for easy parsing.</p>
+
+    <h3 id="validate-curl">Example (curl)</h3>
+    <CodeBlock lang="bash" code={`curl -X POST https://voyagewiki.pages.dev/api/validate \\
+  -H 'Content-Type: application/json' \\
+  --data-binary @MyWorld.json`} />
+
+    <h3 id="validate-js">Example (JavaScript)</h3>
+    <CodeBlock lang="javascript" code={`const result = await fetch('https://voyagewiki.pages.dev/api/validate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(world),
+}).then(r => r.json());
+
+console.log(result.counts);
+result.errors.forEach(({ path, message }) => console.log(path, message));`} />
+
+    <h3 id="validate-python">Example (Python)</h3>
+    <CodeBlock lang="python" code={`import json, urllib.request
+
+with open('MyWorld.json', 'rb') as f:
+    body = f.read()
+
+req = urllib.request.Request(
+    'https://voyagewiki.pages.dev/api/validate',
+    data=body,
+    headers={'Content-Type': 'application/json'},
+)
+result = json.loads(urllib.request.urlopen(req).read())
+print(result['counts'])`} />
+
+    <h3 id="validate-discovery">Endpoint discovery</h3>
+    <p>
+      Issuing <code>GET /api/validate</code> instead of <code>POST</code> returns a machine-readable contract describing the endpoint &mdash; useful when an agent encounters the URL and wants to verify its shape before posting.
+    </p>
+
+    <h2 id="index">GET /api/index.json</h2>
+    <p>Manifest listing every API endpoint with its purpose. Use this as an entry point when an agent discovers the wiki and wants to enumerate available data.</p>
+    <CodeBlock lang="bash" code={`curl https://voyagewiki.pages.dev/api/index.json`} />
+
+    <h2 id="sections-index">GET /api/sections.json</h2>
+    <p>Lightweight index of every documented section &mdash; section key, title, tab, summary, last-updated timestamp. No body content. Good for an agent to enumerate before fetching specific sections.</p>
+    <CodeBlock lang="bash" code={`curl https://voyagewiki.pages.dev/api/sections.json`} />
+
+    <h2 id="section">GET /api/sections/&lt;section&gt;.json or .md</h2>
+    <p>One section, fully self-contained. The <code>.json</code> form returns structured data; the <code>.md</code> form returns Markdown formatted for direct ingestion by an LLM. Both contain the same content:</p>
+    <ul>
+      <li>Section metadata (title, summary, editor location, related sections).</li>
+      <li>Full prose body of the wiki page.</li>
+      <li>Per-field notes pulled from the V33 schema.</li>
+      <li>The V33 schema fragment for that section (io-ts codec definition).</li>
+    </ul>
+    <p>Section keys match the URL slug under <a href="/world">/world</a>, <a href="/mechanics">/mechanics</a>, <a href="/ai">/ai</a>, <a href="/other">/other</a>. Examples: <code>npcs</code>, <code>locations</code>, <code>traits</code>, <code>aiInstructions</code>, <code>storySettings</code>.</p>
+    <CodeBlock lang="bash" code={`curl https://voyagewiki.pages.dev/api/sections/npcs.json
+curl https://voyagewiki.pages.dev/api/sections/locations.md`} />
+
+    <h2 id="wiki">GET /api/wiki.json or .md</h2>
+    <p>The entire wiki in one payload. Useful when an agent wants the full V33 reference loaded into its context window in a single request.</p>
+    <CodeBlock lang="bash" code={`curl https://voyagewiki.pages.dev/api/wiki.json
+curl https://voyagewiki.pages.dev/api/wiki.md`} />
+    <p>The Markdown form is typically the better fit for LLM ingestion &mdash; tokenizes cleanly and preserves heading structure.</p>
+
+    <h2 id="schema">GET /api/schema.json</h2>
+    <p>Raw V33 codec schema as JSON. The same schema fragments embedded in the section endpoints, aggregated. Useful when an agent wants to validate field types without going through <code>/api/validate</code>.</p>
+    <CodeBlock lang="bash" code={`curl https://voyagewiki.pages.dev/api/schema.json`} />
+
+    <h2 id="offline-mirror">Mirror the wiki for an offline agent</h2>
+    <p>Some agents (notably ChatGPT and Codex in long-running threads) intermittently fail to fetch live URLs they should be able to reach. Mirroring the wiki to local disk once sidesteps that entirely &mdash; the agent reads from files instead of fetching. This pulls the top-level payloads plus every section, driving the section loop from <code>sections.json</code> so it never goes stale when sections are added or removed:</p>
+    <CodeBlock lang="bash" code={`set -e
+base='https://voyagewiki.pages.dev'
+out='./voyage-wiki'   # change to your docs folder
+mkdir -p "$out/sections"
+
+curl -sSL "$base/llms.txt"           -o "$out/llms.txt"
+curl -sSL "$base/api/index.json"     -o "$out/api-index.json"
+curl -sSL "$base/api/sections.json"  -o "$out/api-sections.json"
+curl -sSL "$base/api/schema.json"    -o "$out/api-schema.json"
+curl -sSL "$base/api/wiki.json"      -o "$out/api-wiki.json"
+curl -sSL "$base/api/wiki.md"        -o "$out/api-wiki.md"
+
+# Drive the per-section loop from the live manifest (requires jq) so it never goes stale
+curl -sSL "$base/api/sections.json" | jq -r '.[].section' | while read -r s; do
+  curl -sSL "$base/api/sections/$s.md" -o "$out/sections/$s.md"
+done`} />
+    <p>On Windows, the bash version needs Git Bash or WSL. PowerShell does the same thing natively with no <code>jq</code> dependency, since it parses JSON for you:</p>
+    <CodeBlock lang="powershell" code={`$base = 'https://voyagewiki.pages.dev'
+$out  = './voyage-wiki'   # change to your docs folder
+New-Item -ItemType Directory -Force -Path "$out/sections" | Out-Null
+
+Invoke-WebRequest "$base/llms.txt"          -OutFile "$out/llms.txt"
+Invoke-WebRequest "$base/api/index.json"    -OutFile "$out/api-index.json"
+Invoke-WebRequest "$base/api/sections.json" -OutFile "$out/api-sections.json"
+Invoke-WebRequest "$base/api/schema.json"   -OutFile "$out/api-schema.json"
+Invoke-WebRequest "$base/api/wiki.json"     -OutFile "$out/api-wiki.json"
+Invoke-WebRequest "$base/api/wiki.md"       -OutFile "$out/api-wiki.md"
+
+# Section loop driven from the live manifest, so it never goes stale
+Invoke-RestMethod "$base/api/sections.json" | ForEach-Object {
+  Invoke-WebRequest "$base/api/sections/$($_.section).md" -OutFile "$out/sections/$($_.section).md"
+}`} />
+    <p>If you only need the full reference in one file, skip the loop entirely and fetch <code>/api/wiki.md</code> &mdash; it bundles every section into a single Markdown document. The per-section mirror is for agents that want to open one topic at a time.</p>
+
+    <h2 id="agent-prompt">Agent prompt snippet</h2>
+    <p>Drop this into your agent's system prompt or task instructions so it validates as it works:</p>
+    <CodeBlock lang="text" code={`You are authoring or editing a Voyage Heroes V33 world JSON.
+
+Reference docs: every wiki section is available as a self-contained
+endpoint at https://voyagewiki.pages.dev/api/sections/<section>.md
+or .json. Fetch only the sections you need, or pull the whole wiki
+from /api/wiki.md in one request.
+
+Verification: to verify the world, POST the JSON to
+https://voyagewiki.pages.dev/api/validate. The response groups issues
+by severity:
+
+  - errors: runtime-affecting problems. Fix these. The Voyage editor
+    publishes worlds with errors intact, but the engine silently drops
+    fields or breaks lookups at runtime.
+  - warnings: quality issues. Many are intentional design choices;
+    read the "Safe to ignore when..." line in each message before
+    acting.
+  - recommendations: best-practice suggestions, same rule as warnings.
+
+Validate after each batch of changes. Do not declare work complete
+until counts.errors is 0.`} />
+
+    <h2 id="notes">Conventions and notes</h2>
+    <ul>
+      <li><strong>Backtick chips in messages.</strong> Validator messages use backtick-wrapped tokens (<code>`House Smallwood`</code>, <code>`currentArea`</code>) to mark field names and values. Agents can parse these as code-like literals for diff/edit reasoning.</li>
+      <li><strong>Path notation.</strong> Validator <code>path</code> values use dot/bracket notation into the world JSON &mdash; e.g. <code>locations.Acorn Hall.factions[0]</code>, <code>npcs.Bran Stark.type</code>, <code>traits.Archer.startingItems[3].item</code>. The path locates the exact field that produced the issue.</li>
+      <li><strong>Newlines in messages.</strong> Validator messages occasionally embed <code>\n</code> as a structural separator (the in-browser tool renders these as line breaks). Treat them as paragraph boundaries when parsing.</li>
+      <li><strong>Identical surfaces.</strong> The in-browser validator and this endpoint share the same engine. Output is identical across both.</li>
+      <li><strong>No write endpoints.</strong> The wiki is read-only. Validation does not modify the submitted JSON.</li>
+    </ul>
+  </article>
+</BaseLayout>

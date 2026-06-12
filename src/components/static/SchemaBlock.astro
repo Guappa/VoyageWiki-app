@@ -1,0 +1,14 @@
+---
+import CodeBlock from "~/components/static/CodeBlock.astro";
+import { sectionShapeJson } from "~/lib/schema-shape";
+
+interface Props { section: string; }
+const { section } = Astro.props;
+const code = sectionShapeJson(section);
+---
+{code && (
+  <>
+    <h2 id="schema">Schema</h2>
+    <CodeBlock lang="json" code={code} />
+  </>
+)}

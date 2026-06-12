@@ -1,0 +1,23 @@
+---
+tab: "appendix"
+section: "voice-catalog"
+title: "Voice Catalog"
+kind: "guide"
+summary: "Every NPC can be given a `voiceTag` string that maps to a specific TTS voice. The gender prefix is part of the tag string and must be included (e.g. `\"female posh british\"`, `\"male baritone warm\"`). See the catalog below for all valid values."
+order: 40
+advanced: false
+---
+import VoiceCatalog from "~/components/islands/VoiceCatalog.svelte";
+
+Every NPC can be given a `voiceTag` string that maps to a specific TTS voice. The gender prefix is part of the tag string and must be included (e.g. `"female posh british"`, `"male baritone warm"`). See the catalog below for all valid values.
+
+> **📋 Note:** `voiceTag` is extra-codec - not in the formal io-ts schema, but accepted and used by the engine. When present, it selects a specific vocal profile and overrides `gender` for voice selection; `gender` is only read as a fallback when `voiceTag` is absent or empty. The `gender` field still informs the NPC's identity and prose description regardless.
+
+The voice tag actually used at speak time is selected by the [`generateStory`](/ai/aiInstructions#story) task (or `generateInitialStart` on turn 0) and written into game state. The authored `voiceTag` on an NPC is the input that informs that selection. Trigger effects like `changeCharacterVoice` bypass this pipeline by writing the chosen tag directly into game state.
+
+```json
+"voiceTag": "female posh british"
+"voiceTag": "male baritone warm"
+```
+
+<VoiceCatalog client:visible />

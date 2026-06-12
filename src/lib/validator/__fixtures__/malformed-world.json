@@ -1,0 +1,244 @@
+{
+  "configVersion": "V99",
+  "heroesVersion": 99,
+  "death": {
+    "permadeath": "yes",
+    "instructions": ""
+  },
+  "narratorStyle": "",
+  "npcs": {
+    "Bob": {
+      "name": "Bobby",
+      "currentLocation": "Nowhere",
+      "currentArea": "Void",
+      "faction": "Ghosts",
+      "type": "phantom",
+      "tier": "godlike",
+      "gender": "male",
+      "basicInfo": "",
+      "personality": [],
+      "abilities": [],
+      "visualDescription": "a tall figure",
+      "detailType": "detailed",
+      "vulnerabilities": [
+        "frost"
+      ],
+      "slot": ""
+    }
+  },
+  "locations": {
+    "Town": {
+      "name": "Town",
+      "complexityType": "huge",
+      "detailType": "fancy",
+      "x": "near",
+      "y": 0,
+      "radius": 1,
+      "region": "MissingRegion",
+      "factions": [
+        "Ghosts"
+      ],
+      "areas": {
+        "Square": {
+          "description": "d",
+          "paths": [
+            "Town",
+            "Nowhereville"
+          ]
+        },
+        "Alley": {
+          "description": "d",
+          "paths": [
+            "Square"
+          ]
+        }
+      }
+    }
+  },
+  "items": {
+    "Sword": {
+      "name": "Sword",
+      "category": "Blades",
+      "slot": "mainhand",
+      "description": "x",
+      "bonuses": "lots"
+    },
+    "Toolkit": {
+      "name": "Toolkit",
+      "category": "Weapon",
+      "slot": "",
+      "description": "y"
+    }
+  },
+  "itemSettings": {
+    "currencyName": "gold",
+    "itemCategories": [
+      "Weapon"
+    ],
+    "itemSlots": [
+      {
+        "slot": "head",
+        "category": "Weapon",
+        "quantity": 1
+      }
+    ],
+    "startingItems": []
+  },
+  "abilities": {
+    "Zap": {
+      "name": "Zap",
+      "description": "z",
+      "requirements": [
+        {
+          "type": "mana",
+          "variable": "x",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  "attributeSettings": {
+    "attributeNames": [
+      "Strength"
+    ],
+    "startingAttributeValue": 8,
+    "attributeStatModifiers": {
+      "Wisdom": "lots"
+    }
+  },
+  "resourceSettings": {
+    "Health": {
+      "name": "Health",
+      "color": "#ff0000"
+    },
+    "health": {
+      "name": "health",
+      "color": "notacolor"
+    }
+  },
+  "nameFilterSettings": "nope",
+  "npcTypes": {
+    "phantom": {
+      "name": "phantom"
+    }
+  },
+  "skills": {
+    "Cooking": {
+      "name": "Cooking",
+      "attribute": "Charisma",
+      "type": "none",
+      "description": "c"
+    },
+    "cooking": {
+      "name": "cooking",
+      "attribute": "wits",
+      "type": "bogusskilltype",
+      "description": "x"
+    }
+  },
+  "skillSettings": {
+    "skillXPRewards": {
+      "small": 1
+    },
+    "skillTypeDifficultyBonus": {
+      "combat": 1,
+      "social": 1
+    }
+  },
+  "triggers": {
+    "t1": {
+      "name": "trig",
+      "conditions": [
+        {
+          "type": "player-level",
+          "operator": "contains",
+          "value": 3
+        }
+      ],
+      "effects": [
+        {
+          "type": "write-boolean",
+          "value": "yes"
+        },
+        {
+          "type": "party-location",
+          "value": "Town"
+        }
+      ]
+    },
+    "discover_thing": {
+      "name": "discover_thing",
+      "conditions": [],
+      "effects": []
+    }
+  },
+  "traits": {
+    "Human": {
+      "name": "Human",
+      "category": "Race",
+      "skills": [
+        "cooking"
+      ],
+      "abilities": [],
+      "unlockedBy": [],
+      "excludedBy": [],
+      "resources": [
+        {
+          "resource": "mana",
+          "modifier": 5
+        }
+      ]
+    }
+  },
+  "traitCategories": {},
+  "quests": {
+    "Q1": {
+      "name": "Q1",
+      "detailType": "detailed",
+      "questLocation": "",
+      "completionCondition": ""
+    }
+  },
+  "storyStarts": {
+    "Start": {
+      "name": "Start",
+      "description": "",
+      "storyStart": "",
+      "startingPartyNPCs": [
+        "Ghost"
+      ]
+    }
+  },
+  "regions": {
+    "R1": {
+      "name": "R1",
+      "x": 200,
+      "y": 0,
+      "realm": "",
+      "hiddenInfo": "secret",
+      "npcLevelRange": {
+        "min": 5,
+        "max": 2
+      }
+    }
+  },
+  "factions": {
+    "Cabal": {
+      "name": "Cabal",
+      "secretField": "x",
+      "basicInfo": "",
+      "hiddenInfo": ""
+    }
+  },
+  "premadeCharacters": [
+    {
+      "name": "Hero",
+      "traits": [],
+      "description": ""
+    }
+  ],
+  "characterArchetypes": {},
+  "locationArchetypes": {},
+  "regionArchetypes": {},
+  "authorSeeds": {}
+}

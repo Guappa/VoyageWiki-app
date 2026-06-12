@@ -1,0 +1,16 @@
+---
+import lastUpdated from "~/data/generated/last-updated.json";
+
+interface Props { pageKey: string }
+interface LastUpdated { wikiUpdatedAt?: string; perPage?: Record<string, string> }
+
+const { pageKey } = Astro.props;
+const data = lastUpdated as LastUpdated;
+const updatedIso = (data.perPage && data.perPage[pageKey]) || data.wikiUpdatedAt;
+const updatedLabel = updatedIso
+  ? new Date(updatedIso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+  : "";
+---
+{updatedLabel && (
+  <p class="page-updated">Last updated: <time datetime={updatedIso}>{updatedLabel}</time></p>
+)}

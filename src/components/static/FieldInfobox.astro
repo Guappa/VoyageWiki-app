@@ -1,0 +1,38 @@
+---
+interface Props {
+  section: string;
+  path: string;
+  type: string;
+  required: boolean;
+  sizeLimit?: number;
+  apiUrl: string;
+}
+
+const { section, path, type, required, sizeLimit, apiUrl } = Astro.props;
+const fullPath = section + "." + path;
+---
+<aside class="field-infobox" aria-label="Field metadata">
+  <h2 class="field-infobox__title">{fullPath}</h2>
+  <div class="field-infobox__row">
+    <span class="field-infobox__label">Type</span>
+    <span class="field-infobox__value">{type}</span>
+  </div>
+  <div class="field-infobox__row">
+    <span class="field-infobox__label">Required</span>
+    <span class="field-infobox__value">{required ? "yes" : "no"}</span>
+  </div>
+  {sizeLimit !== undefined && (
+    <div class="field-infobox__row">
+      <span class="field-infobox__label">Size limit</span>
+      <span class="field-infobox__value">{sizeLimit} chars</span>
+    </div>
+  )}
+  <div class="field-infobox__row">
+    <span class="field-infobox__label">Section</span>
+    <span class="field-infobox__value">{section}</span>
+  </div>
+  <div class="field-infobox__row">
+    <span class="field-infobox__label">API</span>
+    <span class="field-infobox__value"><a href={apiUrl}>{apiUrl}</a></span>
+  </div>
+</aside>

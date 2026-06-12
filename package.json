@@ -1,0 +1,62 @@
+{
+  "name": "voyagewiki-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run sync:schema && npm run sync:limits && npm run gen:enums && npm run build:last-updated && npm run build:field-tips && npm run build:docs-links && astro build && pagefind --site dist && npm run build:beautify && npm run sync:pagefind-to-public",
+    "build:docs-links": "tsx scripts/build-docs-links.ts",
+    "preview": "astro preview",
+    "sync:schema": "tsx scripts/sync-schema.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "astro check",
+    "sync:limits": "tsx scripts/sync-limits.ts",
+    "gen:enums": "tsx scripts/gen-enums.ts",
+    "validate": "npm run sync:schema --silent && npm run gen:enums --silent && tsx scripts/validate.ts",
+    "sync:pagefind-to-public": "node -e \"const{cpSync,rmSync,existsSync}=require('node:fs');if(existsSync('public/pagefind'))rmSync('public/pagefind',{recursive:true,force:true});cpSync('dist/pagefind','public/pagefind',{recursive:true});console.log('pagefind index copied to public/');\"",
+    "build:last-updated": "tsx scripts/build-last-updated.ts",
+    "build:field-tips": "tsx scripts/build-field-tips.ts",
+    "build:beautify": "node scripts/beautify-html.mjs",
+    "audit": "npm audit --omit=dev",
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:local": "node scripts/smoke.mjs http://localhost:4321"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^6.0.3",
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/svelte": "^8.1.2",
+    "@codemirror/lang-javascript": "^6.2.5",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/language": "^6.12.3",
+    "@dagrejs/dagre": "^1.1.8",
+    "@lezer/highlight": "^1.2.3",
+    "@types/d3-force": "^3.0.10",
+    "@xyflow/svelte": "^1.5.2",
+    "astro": "^6.4.6",
+    "codemirror": "^6.0.2",
+    "d3-force": "^3.0.0",
+    "highlight.js": "^11.11.1",
+    "rehype-highlight": "^7.0.2",
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@types/hast": "^3.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^22.0.0",
+    "js-beautify": "^1.15.4",
+    "pagefind": "^1.5.2",
+    "playwright": "^1.60.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "unist-util-visit": "^5.1.0",
+    "vitest": "^4.1.8",
+    "zod": "^4.4.3"
+  },
+  "overrides": {
+    "yaml": "^2.9.0"
+  }
+}

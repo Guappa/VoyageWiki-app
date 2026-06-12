@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": ["src/**/*", "scripts/**/*", "*.config.*"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "verbatimModuleSyntax": false,
+    "moduleDetection": "force"
+  }
+}
